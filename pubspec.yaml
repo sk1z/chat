@@ -1,0 +1,55 @@
+name: flutter_firebase_login
+description: A new Flutter project.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  authentication_repository:
+    path: packages/authentication_repository
+  form_inputs:
+    path: packages/form_inputs
+  firestore_repository:
+    path: packages/firestore_repository
+  local_cache:
+    path: packages/local_cache
+  message_selector:
+    path: packages/message_selector
+  bloc: ^7.2.1
+  bloc_test: ^8.5.0
+  equatable: ^2.0.3
+  flow_builder: ^0.0.9
+  flutter_bloc: ^7.3.3
+  font_awesome_flutter: ^10.4.0
+  formz: ^0.4.0
+  google_fonts: ^2.1.0
+  meta: ^1.3.0
+  very_good_analysis: ^2.3.0
+  intl: ^0.17.0
+  visibility_detector: ^0.3.3
+  item_selector: ^0.2.0
+  animated_flip_counter: ^0.2.4
+  fluttertoast: ^8.0.9
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  go_router: ^6.0.1
+  
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^0.2.0
+  hive_generator: ^1.1.3
+  build_config: ^1.1.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+  fonts:
+    - family:  AppIcons
+      fonts:
+        - asset: fonts/AppIcons.ttf

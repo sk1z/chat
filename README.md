@@ -1,3 +1,3 @@
 # Chat app with Flutter and Firebase
 
-![screenshot_1](screenshots/screenshot_1.gif) ![screenshot_2](screenshots/screenshot_2.gif)
+<img src="screenshots/screenshot_1.gif" width="49%"/> <img src="screenshots/screenshot_2.gif" align="right" width="49%"/>

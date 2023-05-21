@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>268933439907-6u69imfbi7n6cf7vbosopqk9v8hjjgoq.apps.googleusercontent.com</string>
+	<string>268933439907-l4f7hudbeis50pisto6sfv2rfa62a1up.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.268933439907-6u69imfbi7n6cf7vbosopqk9v8hjjgoq</string>
+	<string>com.googleusercontent.apps.268933439907-l4f7hudbeis50pisto6sfv2rfa62a1up</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>268933439907-3k86986g0g4ui13dqtu2li6ai13d2pht.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyC0uCETVxx65pR6KnEzL_0E86Z1hKjQCiM</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>sk1z.chat</string>
+	<string>com.example.chat</string>
 	<key>PROJECT_ID</key>
 	<string>chat-f322b</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:268933439907:ios:04598d8fe222b78a93ba16</string>
+	<string>1:268933439907:ios:b1d26ebc62a444e193ba16</string>
 </dict>
 </plist>

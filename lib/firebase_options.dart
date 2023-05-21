@@ -25,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -48,7 +45,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyDI9q_23rXwJNN5aKzARg05EaC8H9OxiHU',
-    appId: '1:268933439907:web:d210fa788cca1d7b93ba16',
+    appId: '1:268933439907:web:9407948b3b988f0d93ba16',
     messagingSenderId: '268933439907',
     projectId: 'chat-f322b',
     authDomain: 'chat-f322b.firebaseapp.com',
@@ -57,7 +54,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyA_XYJEf7h6dAsd9ZPFhUuzBNtTZ3Oa0lc',
-    appId: '1:268933439907:android:20a2af44745ecf9e93ba16',
+    appId: '1:268933439907:android:15fda8f739981f2693ba16',
     messagingSenderId: '268933439907',
     projectId: 'chat-f322b',
     storageBucket: 'chat-f322b.appspot.com',
@@ -65,12 +62,23 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyC0uCETVxx65pR6KnEzL_0E86Z1hKjQCiM',
-    appId: '1:268933439907:ios:da71d4f55f8d620b93ba16',
+    appId: '1:268933439907:ios:b1d26ebc62a444e193ba16',
     messagingSenderId: '268933439907',
     projectId: 'chat-f322b',
     storageBucket: 'chat-f322b.appspot.com',
-    androidClientId: '268933439907-ou627i35ad8pp5lelsq918693fjfv5k1.apps.googleusercontent.com',
-    iosClientId: '268933439907-semtsl8ov2f2stc9r5h7sdcjn2d0ou3n.apps.googleusercontent.com',
-    iosBundleId: 'sk1z.chat',
+    androidClientId: '268933439907-3k86986g0g4ui13dqtu2li6ai13d2pht.apps.googleusercontent.com',
+    iosClientId: '268933439907-l4f7hudbeis50pisto6sfv2rfa62a1up.apps.googleusercontent.com',
+    iosBundleId: 'com.example.chat',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyC0uCETVxx65pR6KnEzL_0E86Z1hKjQCiM',
+    appId: '1:268933439907:ios:18683e66f83e520d93ba16',
+    messagingSenderId: '268933439907',
+    projectId: 'chat-f322b',
+    storageBucket: 'chat-f322b.appspot.com',
+    androidClientId: '268933439907-3k86986g0g4ui13dqtu2li6ai13d2pht.apps.googleusercontent.com',
+    iosClientId: '268933439907-47iq8uimbvbvt58gn7f9d0tv6s1a9u1c.apps.googleusercontent.com',
+    iosBundleId: 'com.example.chat.RunnerTests',
   );
 }

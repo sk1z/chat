@@ -1,8 +1,8 @@
 import 'package:firestore_repository/firestore_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_firebase_login/name_edit/name_edit.dart';
-import 'package:flutter_firebase_login/styles/styles.dart';
+import 'package:chat/name_edit/name_edit.dart';
+import 'package:chat/styles/styles.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:formz/formz.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_login/flip_counter/flip_counter.dart';
-import 'package:flutter_firebase_login/styles/styles.dart';
+import 'package:chat/flip_counter/flip_counter.dart';
+import 'package:chat/styles/styles.dart';
 
 class FlipCounter extends StatefulWidget {
   const FlipCounter({super.key, required this.value});

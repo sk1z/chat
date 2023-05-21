@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_login/styles/profile_edit_menu_style.dart';
+import 'package:chat/styles/profile_edit_menu_style.dart';
 
 class ProfileEditMenu extends StatefulWidget {
   ProfileEditMenu({super.key, required this.items, required this.animation});

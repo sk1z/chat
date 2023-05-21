@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_firebase_login/chat/chat.dart';
-import 'package:flutter_firebase_login/styles/styles.dart';
+import 'package:chat/chat/chat.dart';
+import 'package:chat/styles/styles.dart';
 import 'package:message_selector/message_selector.dart';
 
 class MessageList extends StatelessWidget {
@@ -39,10 +39,12 @@ class MessageList extends StatelessWidget {
             builder: (BuildContext context, ChatState state) {
               return ListView.builder(
                 padding: style.padding,
+                reverse: true,
                 controller: scrollController,
                 itemCount: state.messages.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final Message message = state.messages[index];
+                  final List<Message> messages = state.messages;
+                  final Message message = messages[messages.length - index - 1];
 
                   return MetaData(
                     metaData: MessageSelectionMetaData(messageId: message.id),

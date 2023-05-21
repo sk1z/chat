@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_firebase_login/profile_creation/profile_creation.dart';
-import 'package:flutter_firebase_login/styles/styles.dart';
+import 'package:chat/profile_creation/profile_creation.dart';
+import 'package:chat/styles/styles.dart';
 import 'package:formz/formz.dart';
 
 class ProfileCreationSubmitButton extends StatelessWidget {

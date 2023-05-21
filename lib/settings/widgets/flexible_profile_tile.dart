@@ -1,18 +1,13 @@
 import 'dart:ui' show lerpDouble;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_login/styles/styles.dart';
+import 'package:chat/styles/styles.dart';
 
 const double _leftOffset = kToolbarHeight;
 
 class FlexibleProfileTile extends StatelessWidget {
-  const FlexibleProfileTile({
-    required this.expandedHeight,
-    required this.firstName,
-    this.lastName,
-  });
+  const FlexibleProfileTile({required this.firstName, this.lastName});
 
-  final double expandedHeight;
   final String firstName;
   final String? lastName;
 
@@ -28,14 +23,15 @@ class FlexibleProfileTile extends StatelessWidget {
 
     final String name = '$firstName ${lastName ?? ''}';
 
+    final FlexibleProfileTileStyle style =
+        Theme.of(context).extension<FlexibleProfileTileStyle>()!;
+
     final double topOffset = MediaQuery.of(context).viewPadding.top;
     final double collapsedHeight =
         Theme.of(context).appBarTheme.toolbarHeight ??
             _appBar.preferredSize.height;
+    final double expandedHeight = style.expandedHeight ?? 150;
     final double heightDifference = expandedHeight - collapsedHeight;
-
-    final FlexibleProfileTileStyle style =
-        Theme.of(context).extension<FlexibleProfileTileStyle>()!;
 
     final EdgeInsetsGeometry? expandedContentPadding =
         style.expandedContentPadding ?? style.contentPadding;

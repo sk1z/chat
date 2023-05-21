@@ -86,18 +86,18 @@ class _MessageSelectionControllerrState
     _scrollJumpTimer = Timer.periodic(_scrollJumpFrequency, (timer) {
       if (!_scrollController.hasClients) {
       } else if (_scrollStatus == ScrollStatus.up &&
-          _scrollController.offset > 0) {
-        return _scrollController.jumpTo(
-            _scrollController.offset < _scrollJumpOffset
-                ? 0
-                : _scrollController.offset - _scrollJumpOffset);
-      } else if (_scrollStatus == ScrollStatus.down &&
           _scrollController.offset <
               _scrollController.position.maxScrollExtent) {
         return _scrollController.jumpTo(_scrollController.offset >
                 _scrollController.position.maxScrollExtent - _scrollJumpOffset
             ? _scrollController.position.maxScrollExtent
             : _scrollController.offset + _scrollJumpOffset);
+      } else if (_scrollStatus == ScrollStatus.down &&
+          _scrollController.offset > 0) {
+        return _scrollController.jumpTo(
+            _scrollController.offset < _scrollJumpOffset
+                ? 0
+                : _scrollController.offset - _scrollJumpOffset);
       }
       timer.cancel();
     });

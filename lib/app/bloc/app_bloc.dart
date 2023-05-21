@@ -16,20 +16,15 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     required FirestoreRepository firestoreRepository,
   })  : _authRepository = authenticationRepository,
         _firestoreRepository = firestoreRepository,
-        super(
-          // authenticationRepository.currentUser.isNotEmpty
-          //     ? AppState.authenticated(authenticationRepository.currentUser)
-          //     : const AppState.unauthenticated(),
-          authenticationRepository.currentUser.isEmpty
-              ? const AppState.unauthenticated()
-              : firestoreRepository.currentProfile.isEmpty
-                  ? AppState.withoutPersonalData(
-                      authenticationRepository.currentUser)
-                  : AppState.authenticated(
-                      authenticationRepository.currentUser,
-                      firestoreRepository.currentProfile,
-                    ),
-        ) {
+        super(authenticationRepository.currentUser.isEmpty
+            ? const AppState.unauthenticated()
+            : firestoreRepository.currentProfile.isEmpty
+                ? AppState.withoutPersonalData(
+                    authenticationRepository.currentUser)
+                : AppState.authenticated(
+                    authenticationRepository.currentUser,
+                    firestoreRepository.currentProfile,
+                  )) {
     on<AppUserChanged>(_onUserChanged);
     on<AppLogoutRequested>(_onLogoutRequested);
     on<AppProfileChanged>(_onProfileChanged);
@@ -51,10 +46,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   StreamSubscription<Profile>? _profileSubscription;
 
   void _onUserChanged(AppUserChanged event, Emitter<AppState> emit) async {
-    // emit(event.user.isNotEmpty
-    //     ? AppState.authenticated(event.user)
-    //     : const AppState.unauthenticated());
-
     final user = event.user;
 
     if (user.isEmpty) {

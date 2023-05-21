@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_firebase_login/chat/chat.dart';
+import 'package:chat/chat/chat.dart';
 
 class MessageHighlight extends SingleChildRenderObjectWidget {
   const MessageHighlight(

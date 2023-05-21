@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.flutter_firebase_login">
+    package="sk1z.chat">
    <application
         android:label="Chat"
         android:icon="@mipmap/ic_launcher">

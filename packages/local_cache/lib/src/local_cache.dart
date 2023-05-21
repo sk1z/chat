@@ -13,6 +13,8 @@ part 'local_cache.g.dart';
 class LocalCacheClient extends _$LocalCacheClient {
   LocalCacheClient() : super(_openConnection());
 
+  String userId = '';
+
   @override
   int get schemaVersion => 1;
 
@@ -27,10 +29,12 @@ class LocalCacheClient extends _$LocalCacheClient {
     final otherChats = alias(cacheChats, 'other_chats');
     final chat = await (select(cacheChats)
           ..where((t) {
-            return t.fromServer &
+            return t.userId.equals(userId) &
+                t.fromServer &
                 notExistsQuery(select(otherChats)
                   ..where((tbl) {
-                    return tbl.fromServer &
+                    return tbl.userId.equals(userId) &
+                        tbl.fromServer &
                         (tbl.lastUpdated.isBiggerThan(t.lastUpdated) |
                             tbl.lastUpdated.equalsExp(t.lastUpdated) &
                                 tbl.id.isBiggerThan(t.id));
@@ -44,10 +48,12 @@ class LocalCacheClient extends _$LocalCacheClient {
     final otherMessages = alias(cacheMessages, 'other_messages');
     final query = select(cacheMessages)
       ..where((t) {
-        return t.fromServer &
+        return t.userId.equals(userId) &
+            t.fromServer &
             notExistsQuery(select(otherMessages)
               ..where((tbl) {
                 return tbl.chat.equalsExp(t.chat) &
+                    tbl.userId.equals(userId) &
                     tbl.fromServer &
                     (tbl.lastUpdated.isBiggerThan(t.lastUpdated) |
                         tbl.lastUpdated.equalsExp(t.lastUpdated) &
@@ -58,7 +64,8 @@ class LocalCacheClient extends _$LocalCacheClient {
     return {for (final message in messages) message.chat: message.lastUpdated};
   }
 
-  Future<void> insertMessages(List<CacheMessage> messages, bool fromServer) {
+  Future<void> insertMessages(
+      String chatId, List<CacheMessage> messages, bool fromServer) {
     return batch((batch) {
       if (fromServer) {
         batch.update(
@@ -67,18 +74,22 @@ class LocalCacheClient extends _$LocalCacheClient {
             fromServer: Value(true),
           ),
           where: ($CacheMessagesTable t) {
-            return t.fromServer.not();
+            return t.chat.equals(chatId) &
+                t.userId.equals(userId) &
+                t.fromServer.not();
           },
         );
       }
       if (messages.isNotEmpty) {
         batch.insertAllOnConflictUpdate(cacheMessages, messages);
         batch.deleteWhere(cacheMessages, ($CacheMessagesTable t) {
-          return existsQuery(select(cacheChats)
-            ..where((tbl) {
-              return tbl.id.equalsExp(t.chat) &
-                  tbl.lastCleared.isBiggerOrEqual(t.sentTime);
-            }));
+          return t.userId.equals(userId) &
+              existsQuery(select(cacheChats)
+                ..where((tbl) {
+                  return tbl.id.equalsExp(t.chat) &
+                      tbl.userId.equals(userId) &
+                      tbl.lastCleared.isBiggerOrEqual(t.sentTime);
+                }));
         });
       }
     });
@@ -86,7 +97,11 @@ class LocalCacheClient extends _$LocalCacheClient {
 
   Stream<List<CacheMessage>> watchMessages(String chatId) {
     return (select(cacheMessages)
-          ..where((t) => t.chat.equals(chatId) & t.deleted.not())
+          ..where((t) {
+            return t.chat.equals(chatId) &
+                t.userId.equals(userId) &
+                t.deleted.not();
+          })
           ..orderBy([(t) => OrderingTerm(expression: t.sentTime)]))
         .watch();
   }
@@ -100,7 +115,7 @@ class LocalCacheClient extends _$LocalCacheClient {
             fromServer: Value(true),
           ),
           where: ($CacheChatsTable t) {
-            return t.fromServer.not();
+            return t.userId.equals(userId) & t.fromServer.not();
           },
         );
       }
@@ -108,9 +123,11 @@ class LocalCacheClient extends _$LocalCacheClient {
       final chatIds = chats.map((chat) => chat.id);
       batch.deleteWhere(cacheMessages, ($CacheMessagesTable t) {
         return t.chat.isIn(chatIds) &
+            t.userId.equals(userId) &
             existsQuery(select(cacheChats)
               ..where((tbl) {
                 return tbl.id.equalsExp(t.chat) &
+                    tbl.userId.equals(userId) &
                     t.sentTime.isSmallerOrEqual(tbl.lastCleared);
               }));
       });
@@ -119,16 +136,22 @@ class LocalCacheClient extends _$LocalCacheClient {
 
   Stream<List<ChatWithLastMessage>> watchChats() {
     final otherMessages = alias(cacheMessages, 'other_messages');
-    final query = select(cacheChats).join([
+    final query = (select(cacheChats)
+          ..where((t) {
+            return t.userId.equals(userId);
+          }))
+        .join([
       leftOuterJoin(
         cacheMessages,
         cacheMessages.chat.equalsExp(cacheChats.id) &
+            cacheMessages.userId.equals(userId) &
             cacheMessages.deleted.not() &
             notExistsQuery(select(otherMessages)
               ..where((t) {
-                return t.deleted.not() &
-                    (t.chat.equalsExp(cacheMessages.chat) &
-                            t.sentTime.isBiggerThan(cacheMessages.sentTime) |
+                return t.chat.equalsExp(cacheMessages.chat) &
+                    t.userId.equals(userId) &
+                    t.deleted.not() &
+                    (t.sentTime.isBiggerThan(cacheMessages.sentTime) |
                         t.sentTime.equalsExp(cacheMessages.sentTime) &
                             t.id.isBiggerThan(cacheMessages.id));
               })),

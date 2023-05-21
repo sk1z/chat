@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_firebase_login/app/app.dart';
-import 'package:flutter_firebase_login/item_tile/item_tile.dart';
-import 'package:flutter_firebase_login/chats/chats.dart';
+import 'package:chat/app/app.dart';
+import 'package:chat/item_tile/item_tile.dart';
+import 'package:chat/chats/chats.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 

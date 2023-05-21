@@ -4,34 +4,34 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:firestore_repository/firestore_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_firebase_login/app/app.dart';
-import 'package:flutter_firebase_login/chat/chat.dart';
-import 'package:flutter_firebase_login/chats/cubit/chats_cubit.dart';
-import 'package:flutter_firebase_login/contacts/contacts.dart';
-import 'package:flutter_firebase_login/email_update/email_update.dart';
-import 'package:flutter_firebase_login/home/home.dart';
-import 'package:flutter_firebase_login/login/login.dart';
-import 'package:flutter_firebase_login/name_edit/name_edit.dart';
-import 'package:flutter_firebase_login/password_update/password_update.dart';
-import 'package:flutter_firebase_login/profile_creation/profile_creation.dart';
-import 'package:flutter_firebase_login/settings/settings.dart';
-import 'package:flutter_firebase_login/sign_up/sign_up.dart';
-import 'package:flutter_firebase_login/theme.dart';
+import 'package:chat/app/app.dart';
+import 'package:chat/chat/chat.dart';
+import 'package:chat/chats/cubit/chats_cubit.dart';
+import 'package:chat/contacts/contacts.dart';
+import 'package:chat/email_update/email_update.dart';
+import 'package:chat/home/home.dart';
+import 'package:chat/login/login.dart';
+import 'package:chat/name_edit/name_edit.dart';
+import 'package:chat/password_update/password_update.dart';
+import 'package:chat/profile_creation/profile_creation.dart';
+import 'package:chat/settings/settings.dart';
+import 'package:chat/sign_up/sign_up.dart';
+import 'package:chat/theme.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_cache/local_cache.dart';
 
 class App extends StatelessWidget {
   App({
     required this.authenticationRepository,
-    required this.localCache,
     required this.firestoreRepository,
+    required this.localCache,
   }) : _appBloc = AppBloc(
             authenticationRepository: authenticationRepository,
             firestoreRepository: firestoreRepository);
 
   final AuthenticationRepository authenticationRepository;
-  final LocalCacheClient localCache;
   final FirestoreRepository firestoreRepository;
+  final LocalCacheClient localCache;
 
   final AppBloc _appBloc;
 
@@ -40,17 +40,11 @@ class App extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider.value(value: authenticationRepository),
-        RepositoryProvider.value(value: localCache),
         RepositoryProvider.value(value: firestoreRepository),
+        RepositoryProvider.value(value: localCache),
       ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider.value(value: _appBloc),
-          BlocProvider(
-              create: (_) => ChatsCubit(
-                  localCache: localCache,
-                  firestoreRepository: firestoreRepository)),
-        ],
+      child: BlocProvider.value(
+        value: _appBloc,
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,
           theme: theme,
@@ -92,71 +86,84 @@ class App extends StatelessWidget {
           );
         },
       ),
-      GoRoute(
-        path: '/',
-        pageBuilder: (BuildContext context, GoRouterState state) {
+      ShellRoute(
+        pageBuilder: (BuildContext context, GoRouterState state, Widget child) {
           return SlideWithFadeTransitionPage(
             key: state.pageKey,
-            child: const HomePage(),
+            child: BlocProvider(
+              create: (_) => ChatsCubit(
+                  localCache: context.read<LocalCacheClient>(),
+                  firestoreRepository: firestoreRepository),
+              child: child,
+            ),
           );
         },
         routes: [
           GoRoute(
-            path: 'chats/:contact_id',
-            pageBuilder: (BuildContext context, GoRouterState state) {
-              return SlideWithFadeTransitionPage(
-                key: state.pageKey,
-                child: ChatFlow(
-                  contactId: state.params['contact_id']!,
-                  contactFirstName: state.queryParams['contact_first_name']!,
-                ),
-              );
-            },
-          ),
-          GoRoute(
-            path: 'contacts',
-            pageBuilder: (BuildContext context, GoRouterState state) {
-              return SlideWithFadeTransitionPage(
-                key: state.pageKey,
-                child: const ContactsPage(),
-              );
-            },
-          ),
-          GoRoute(
-            path: 'settings',
-            pageBuilder: (BuildContext context, GoRouterState state) {
-              return SlideWithFadeTransitionPage(
-                key: state.pageKey,
-                child: const SettingsPage(),
-              );
+            path: '/',
+            builder: (BuildContext context, GoRouterState state) {
+              return const HomePage();
             },
             routes: [
               GoRoute(
-                path: 'email_update',
+                path: 'chats/:contact_id',
                 pageBuilder: (BuildContext context, GoRouterState state) {
                   return SlideWithFadeTransitionPage(
                     key: state.pageKey,
-                    child: const EmailUpdateFlow(),
+                    child: ChatFlow(
+                      contactId: state.params['contact_id']!,
+                      contactFirstName:
+                          state.queryParams['contact_first_name']!,
+                    ),
                   );
                 },
               ),
               GoRoute(
-                path: 'password_update',
+                path: 'contacts',
                 pageBuilder: (BuildContext context, GoRouterState state) {
                   return SlideWithFadeTransitionPage(
                     key: state.pageKey,
-                    child: const PasswordUpdateFlow(),
+                    child: const ContactsPage(),
                   );
                 },
               ),
               GoRoute(
-                path: 'name_edit',
+                path: 'settings',
                 pageBuilder: (BuildContext context, GoRouterState state) {
                   return SlideWithFadeTransitionPage(
                     key: state.pageKey,
-                    child: const NameEditPage(),
+                    child: const SettingsPage(),
                   );
                 },
+                routes: [
+                  GoRoute(
+                    path: 'email_update',
+                    pageBuilder: (BuildContext context, GoRouterState state) {
+                      return SlideWithFadeTransitionPage(
+                        key: state.pageKey,
+                        child: const EmailUpdateFlow(),
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: 'password_update',
+                    pageBuilder: (BuildContext context, GoRouterState state) {
+                      return SlideWithFadeTransitionPage(
+                        key: state.pageKey,
+                        child: const PasswordUpdateFlow(),
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: 'name_edit',
+                    pageBuilder: (BuildContext context, GoRouterState state) {
+                      return SlideWithFadeTransitionPage(
+                        key: state.pageKey,
+                        child: const NameEditPage(),
+                      );
+                    },
+                  ),
+                ],
               ),
             ],
           ),
@@ -197,33 +204,61 @@ class SlideWithFadeTransitionPage extends Page<void> {
 
   final Widget child;
 
-  static final CurveTween _tween = CurveTween(curve: Curves.ease);
-  static final Animatable<Offset> _position = Tween<Offset>(
-    begin: const Offset(0.2, 0),
-    end: Offset.zero,
-  ).chain(_tween);
-
   @override
   Route<void> createRoute(BuildContext context) {
-    return PageRouteBuilder(
-      settings: this,
-      transitionDuration: const Duration(milliseconds: 170),
-      reverseTransitionDuration: const Duration(milliseconds: 170),
-      pageBuilder: (_, __, ___) => child,
-      transitionsBuilder: (
-        BuildContext context,
-        Animation<double> animation,
-        Animation<double> secondaryAnimation,
-        Widget child,
-      ) {
-        return SlideTransition(
-          position: _position.animate(animation),
-          child: FadeTransition(
-            opacity: _tween.animate(animation),
-            child: child,
-          ),
-        );
-      },
+    return _PageBasedMaterialPageRoute(page: this, child: child);
+  }
+}
+
+class _PageBasedMaterialPageRoute<T> extends PageRoute<T> {
+  _PageBasedMaterialPageRoute(
+      {required SlideWithFadeTransitionPage page, required this.child})
+      : super(settings: page);
+
+  final Widget child;
+
+  SlideWithFadeTransitionPage get _page =>
+      settings as SlideWithFadeTransitionPage;
+
+  static final CurveTween _easeTween = CurveTween(curve: Curves.ease);
+  static final Animatable<Offset> _positionTween = Tween<Offset>(
+    begin: const Offset(0.2, 0),
+    end: Offset.zero,
+  ).chain(_easeTween);
+
+  @override
+  Color? get barrierColor => null;
+
+  @override
+  String? get barrierLabel => null;
+
+  @override
+  bool get maintainState => true;
+
+  @override
+  Duration get transitionDuration => const Duration(milliseconds: 170);
+
+  @override
+  Duration get reverseTransitionDuration => const Duration(milliseconds: 170);
+
+  @override
+  Widget buildPage(_, __, ___) {
+    return _page.child;
+  }
+
+  @override
+  Widget buildTransitions(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    return SlideTransition(
+      position: animation.drive(_positionTween),
+      child: FadeTransition(
+        opacity: animation.drive(_easeTween),
+        child: child,
+      ),
     );
   }
 }

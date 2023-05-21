@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_login/chat/chat.dart';
+import 'package:chat/chat/chat.dart';
 
 class ChatPage extends StatelessWidget {
   const ChatPage({super.key});

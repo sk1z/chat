@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_firebase_login/login_data_input/login_data_input.dart';
-import 'package:flutter_firebase_login/sign_up/sign_up.dart';
-import 'package:flutter_firebase_login/styles/styles.dart';
+import 'package:chat/login_data_input/login_data_input.dart';
+import 'package:chat/sign_up/sign_up.dart';
+import 'package:chat/styles/styles.dart';
 import 'package:formz/formz.dart';
 
 class SignUpForm extends StatelessWidget {

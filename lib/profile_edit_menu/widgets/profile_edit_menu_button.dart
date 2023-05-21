@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_login/profile_edit_menu/profile_edit_menu.dart';
+import 'package:chat/profile_edit_menu/profile_edit_menu.dart';
 
 typedef _ProfileEditMenuItemBuilder<T> = List<Widget> Function();
 

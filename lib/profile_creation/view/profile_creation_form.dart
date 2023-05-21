@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_firebase_login/name_edit/name_edit.dart';
-import 'package:flutter_firebase_login/profile_creation/profile_creation.dart';
-import 'package:flutter_firebase_login/styles/styles.dart';
+import 'package:chat/name_edit/name_edit.dart';
+import 'package:chat/profile_creation/profile_creation.dart';
+import 'package:chat/styles/styles.dart';
 
 class ProfileCreationForm extends StatelessWidget {
   const ProfileCreationForm({super.key});

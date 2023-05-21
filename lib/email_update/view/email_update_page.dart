@@ -1,10 +1,10 @@
 import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_firebase_login/account_data_update/account_data_update.dart';
-import 'package:flutter_firebase_login/email_update/email_update.dart';
-import 'package:flutter_firebase_login/header/header.dart';
-import 'package:flutter_firebase_login/item_box/item_box.dart';
+import 'package:chat/account_data_update/account_data_update.dart';
+import 'package:chat/email_update/email_update.dart';
+import 'package:chat/header/header.dart';
+import 'package:chat/item_box/item_box.dart';
 
 class EmailUpdatePage extends StatelessWidget {
   const EmailUpdatePage({super.key});

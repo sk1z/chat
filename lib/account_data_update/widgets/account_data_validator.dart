@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_login/styles/styles.dart';
+import 'package:chat/styles/styles.dart';
 
 class AccountDataValidator extends StatelessWidget {
   const AccountDataValidator({super.key, this.error});

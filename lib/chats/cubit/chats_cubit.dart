@@ -11,32 +11,37 @@ class ChatsCubit extends Cubit<ChatsState> {
   ChatsCubit({
     required LocalCacheClient localCache,
     required FirestoreRepository firestoreRepository,
-  })  : _localCache = localCache,
-        _firestoreRepository = firestoreRepository,
+  })  : _firestoreRepository = firestoreRepository,
         super(const ChatsState()) {
-    _localCache.messagesLastFetchTimes().then((messagesLastFetchTimes) {
-      _chatsSubscription = _localCache.watchChats().listen((chatList) {
+    localCache.userId = firestoreRepository.userId;
+
+    localCache.messagesLastFetchTimes().then((lastFetchTimes) {
+      _chatsSubscription = localCache.watchChats().listen((chatList) {
         final chats = {for (final chat in chatList) chat.id: chat};
         emit(state.copyWith(chats: chats, chatList: chatList));
         for (final chat in chatList) {
-          _messagesCachingSubscriptions[chat.id] ??= _firestoreRepository
-              .messagesCaching(
-                  chat.id, chat.lastCleared, messagesLastFetchTimes[chat.id])
-              .listen((_) {});
+          _cacheMessagesSubscriptions[chat.id] ??= _firestoreRepository
+              .cacheMessages(chat.id, chat.lastCleared, lastFetchTimes[chat.id])
+              .listen((cacheMessages) {
+            localCache.insertMessages(
+                chat.id, cacheMessages.messages, cacheMessages.fromServer);
+          });
         }
       });
     });
-    _localCache.chatsLastFetchTime().then((chatsLastFetch) {
-      _chatsCachingSubscription =
-          _firestoreRepository.chatsCaching(chatsLastFetch).listen((_) {});
+    localCache.chatsLastFetchTime().then((lastFetchTime) {
+      _cacheChatsSubscription =
+          _firestoreRepository.cacheChats(lastFetchTime).listen((cacheChats) {
+        localCache.insertChats(cacheChats.chats, cacheChats.fromServer);
+      });
     });
   }
 
-  final LocalCacheClient _localCache;
   final FirestoreRepository _firestoreRepository;
   StreamSubscription<List<ChatWithLastMessage>>? _chatsSubscription;
-  StreamSubscription<void>? _chatsCachingSubscription;
-  Map<String, StreamSubscription<void>> _messagesCachingSubscriptions = {};
+  StreamSubscription<CacheChats>? _cacheChatsSubscription;
+  final Map<String, StreamSubscription<CacheMessages>>
+      _cacheMessagesSubscriptions = {};
 
   Future<void> clearChat(String chatId) async {
     return _firestoreRepository.clearChat(chatId);
@@ -45,8 +50,8 @@ class ChatsCubit extends Cubit<ChatsState> {
   @override
   Future<void> close() {
     _chatsSubscription?.cancel();
-    _chatsCachingSubscription?.cancel();
-    _messagesCachingSubscriptions.values
+    _cacheChatsSubscription?.cancel();
+    _cacheMessagesSubscriptions.values
         .forEach((subscription) => subscription.cancel());
     return super.close();
   }

@@ -4,8 +4,8 @@ import 'dart:ui';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firestore_repository/firestore_repository.dart';
-import 'package:flutter_firebase_login/chat/chat.dart';
-import 'package:flutter_firebase_login/chats/chats.dart';
+import 'package:chat/chat/chat.dart';
+import 'package:chat/chats/chats.dart';
 import 'package:local_cache/local_cache.dart';
 
 part 'chat_state.dart';
@@ -31,7 +31,7 @@ class ChatCubit extends Cubit<ChatState> {
       final messages = cacheMessages.map((message) {
         return Message(
           id: message.id,
-          isMy: message.userId == userId,
+          isMy: message.senderId == userId,
           message: message.message,
           lastUpdated: message.lastUpdated,
         );
@@ -107,7 +107,7 @@ class ChatCubit extends Cubit<ChatState> {
     ));
   }
 
-  void addMessage(String message) async {
+  void addMessage(String message) {
     _firestoreRepository.addMessage(
         chatExists: _chatsCubit.state.chats[_chatId] != null,
         chatId: _chatId,
@@ -134,48 +134,8 @@ class ChatCubit extends Cubit<ChatState> {
     return super.close();
   }
 
-  void createMessages() {
-    final messageList = <Message>[
-      Message(
-        id: '0',
-        isMy: false,
-        message: 'Hi',
-        lastUpdated: DateTime(2022, 11, 5, 13, 1),
-      ),
-      Message(
-        id: '1',
-        isMy: false,
-        message: 'Helloooo?',
-        lastUpdated: DateTime(2022, 11, 5, 13, 2),
-      ),
-      Message(
-        id: '2',
-        isMy: true,
-        message: 'Hi James',
-        lastUpdated: DateTime(2022, 11, 5, 13, 5),
-      ),
-      Message(
-        id: '3',
-        isMy: false,
-        message: 'Do you want to watch the basketball game tonight? '
-            'We could order some chinese food :)',
-        lastUpdated: DateTime(2022, 11, 5, 13, 7),
-      ),
-      Message(
-        id: '4',
-        isMy: true,
-        message: 'Sounds great! Let us meet at 7 PM, okay?',
-        lastUpdated: DateTime(2022, 11, 5, 13, 7, 15),
-      ),
-      Message(
-        id: '5',
-        isMy: false,
-        message: 'See you later!',
-        lastUpdated: DateTime(2022, 11, 5, 13, 9),
-      ),
-    ];
-    final messages = state.messages.toList();
-    messages.addAll(messageList);
-    emit(state.copyWith(messages: messages));
+  void addExampleMessages() {
+    _firestoreRepository.addExampleMessages(
+        _chatId, _firestoreRepository.userId, _contactId);
   }
 }

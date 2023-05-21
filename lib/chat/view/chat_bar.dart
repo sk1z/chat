@@ -1,9 +1,9 @@
 import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_firebase_login/chat/chat.dart';
-import 'package:flutter_firebase_login/contact/contact.dart';
-import 'package:flutter_firebase_login/flip_counter/flip_counter.dart';
+import 'package:chat/chat/chat.dart';
+import 'package:chat/contact/contact.dart';
+import 'package:chat/flip_counter/flip_counter.dart';
 
 class ChatBar extends StatelessWidget implements PreferredSizeWidget {
   const ChatBar({super.key});
@@ -41,7 +41,7 @@ class ChatBar extends StatelessWidget implements PreferredSizeWidget {
             onPressed: () => context.flow<ChatState>().complete(),
           ),
           title: InkWell(
-            onTap: () => context.read<ChatCubit>().createMessages(),
+            onTap: () => context.read<ChatCubit>().addExampleMessages(),
             child: ContactTile(
               mode: ContactTileMode.appBar,
               firstName: state.contactFirstName,

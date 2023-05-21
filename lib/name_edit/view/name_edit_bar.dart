@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_firebase_login/name_edit/name_edit.dart';
+import 'package:chat/name_edit/name_edit.dart';
 
 class NameEditBar extends StatelessWidget implements PreferredSizeWidget {
   const NameEditBar({super.key});

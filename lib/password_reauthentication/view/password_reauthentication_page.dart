@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_firebase_login/password_reauthentication/password_reauthentication.dart';
+import 'package:chat/password_reauthentication/password_reauthentication.dart';
 
 class PasswordReauthenticationPage extends StatelessWidget {
   const PasswordReauthenticationPage(

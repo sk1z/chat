@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FlipCounterDigit extends StatelessWidget {
-  const FlipCounterDigit({
-    super.key,
-    required this.width,
-    required this.digit,
-  });
+  const FlipCounterDigit({super.key, required this.width, required this.digit});
 
   final double width;
   final int digit;

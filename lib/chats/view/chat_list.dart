@@ -1,11 +1,15 @@
+import 'package:boxy/slivers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_firebase_login/chats/chats.dart';
-import 'package:flutter_firebase_login/contact/contact.dart';
-import 'package:flutter_firebase_login/header/header.dart';
-import 'package:flutter_firebase_login/item_divider/item_divider.dart';
+import 'package:chat/chats/chats.dart';
+import 'package:chat/contact/contact.dart';
+import 'package:chat/header/header.dart';
+import 'package:chat/item_box/item_box.dart';
+import 'package:chat/item_divider/item_divider.dart';
+import 'package:chat/styles/styles.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_cache/local_cache.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 
 class ChatList extends StatelessWidget {
   const ChatList({super.key, required this.chats});
@@ -30,48 +34,74 @@ class ChatList extends StatelessWidget {
       }
     }
 
+    final ChatTileStyle chatTileStyle =
+        Theme.of(context).extension<ChatTileStyle>()!;
+    final ContactTileStyle contactTileStyle =
+        Theme.of(context).extension<ContactTileStyle>()!;
+
+    const Widget sliverFillRemaining = SliverFillRemaining(
+      hasScrollBody: false,
+      child: SizedBox.shrink(),
+    );
+
     return CustomScrollView(slivers: [
-      SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (BuildContext context, int index) {
-            final ChatWithLastMessage chat = chats[index];
+      SliverContainer(
+        background: const ItemBox(),
+        sliver: MultiSliver(children: [
+          SliverFixedExtentList(
+            itemExtent: chatTileStyle.height ?? 100,
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                final ChatWithLastMessage chat = chats[index];
 
-            return ChatTile(
-              onTap: () => openChatPage(chat.contactId, chat.contactFirstName),
-              onLongPress: () => context.read<ChatsCubit>().clearChat(chat.id),
-              firstName: chat.contactFirstName,
-              message: chat.message,
-              sentTime: chat.messageSentTime,
-              now: now,
-              divider: firstContact != null ? index < firstContact - 1 : false,
-            );
-          },
-          childCount: firstContact ?? chats.length,
-        ),
+                return ChatTile(
+                  onTap: () =>
+                      openChatPage(chat.contactId, chat.contactFirstName),
+                  onLongPress: () =>
+                      context.read<ChatsCubit>().clearChat(chat.id),
+                  firstName: chat.contactFirstName,
+                  message: chat.message,
+                  sentTime: chat.messageSentTime,
+                  now: now,
+                  divider: index < (firstContact ?? chats.length) - 1,
+                );
+              },
+              childCount: firstContact ?? chats.length,
+            ),
+          ),
+          if (firstContact == null) sliverFillRemaining,
+        ]),
       ),
-      const SliverToBoxAdapter(child: ItemDivider()),
-      if (firstContact != null) ...[
-        const SliverToBoxAdapter(
-          child: Header(
-            mode: HeaderMode.wide,
-            title: 'Your contacts',
-          ),
-        ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              final ChatWithLastMessage chat = chats[firstContact! + index];
+      if (firstContact != null && firstContact > 0)
+        const SliverToBoxAdapter(child: ItemDivider()),
+      if (firstContact != null)
+        SliverContainer(
+          background: const ItemBox(),
+          sliver: MultiSliver(children: [
+            const SliverToBoxAdapter(
+              child: Header(
+                mode: HeaderMode.wide,
+                title: 'Your contacts',
+              ),
+            ),
+            SliverFixedExtentList(
+              itemExtent: contactTileStyle.height ?? 100,
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  final ChatWithLastMessage chat = chats[firstContact! + index];
 
-              return ContactTile(
-                onTap: () =>
-                    openChatPage(chat.contactId, chat.contactFirstName),
-                firstName: chat.contactFirstName,
-              );
-            },
-            childCount: chats.length - firstContact,
-          ),
+                  return ContactTile(
+                    onTap: () =>
+                        openChatPage(chat.contactId, chat.contactFirstName),
+                    firstName: chat.contactFirstName,
+                  );
+                },
+                childCount: chats.length - firstContact,
+              ),
+            ),
+            sliverFillRemaining,
+          ]),
         ),
-      ]
     ]);
   }
 }
@@ -81,7 +111,7 @@ List<ChatWithLastMessage> createChats(DateTime time) {
     ChatWithLastMessage(
       id: '0',
       contactId: '0',
-      contactFirstName: 'Pasha',
+      contactFirstName: 'Hari',
       messageUid: '0',
       message: 'Effd',
       messageSentTime: time,
@@ -89,7 +119,7 @@ List<ChatWithLastMessage> createChats(DateTime time) {
     ChatWithLastMessage(
       id: '2',
       contactId: '2',
-      contactFirstName: '',
+      contactFirstName: 'Emm',
       message: 'zz',
       messageSentTime: time.add(Duration(
         days: -6,
@@ -98,7 +128,7 @@ List<ChatWithLastMessage> createChats(DateTime time) {
     ChatWithLastMessage(
       id: '3',
       contactId: '3',
-      contactFirstName: 'Lam',
+      contactFirstName: 'Oi',
       messageUid: '3',
       message: 'Hi',
       messageSentTime: time.add(Duration(
@@ -108,7 +138,7 @@ List<ChatWithLastMessage> createChats(DateTime time) {
     ChatWithLastMessage(
       id: '3',
       contactId: '3',
-      contactFirstName: 'Lapusik',
+      contactFirstName: 'Josefin',
       messageUid: '3',
       message: 'Hi',
       messageSentTime: time.add(Duration(
@@ -118,7 +148,7 @@ List<ChatWithLastMessage> createChats(DateTime time) {
     ChatWithLastMessage(
       id: '4',
       contactId: '4',
-      contactFirstName: 'Kavo',
+      contactFirstName: 'He',
       messageUid: '4',
       message: 'chto',
       messageSentTime: time.add(Duration(
@@ -128,7 +158,7 @@ List<ChatWithLastMessage> createChats(DateTime time) {
     ChatWithLastMessage(
       id: '5',
       contactId: '5',
-      contactFirstName: 'Tavo',
+      contactFirstName: 'Heh',
       messageUid: '5',
       message: 'la la',
       messageSentTime: time.add(Duration(
@@ -139,49 +169,43 @@ List<ChatWithLastMessage> createChats(DateTime time) {
     ChatWithLastMessage(
       id: '5',
       contactId: '5',
-      contactFirstName: 'Mmm',
+      contactFirstName: 'Lukas',
       messageUid: '5',
     ),
     ChatWithLastMessage(
-      id: '5',
+      id: '6',
       contactId: '5',
-      contactFirstName: 'Mmm',
+      contactFirstName: 'Lukas',
       messageUid: '5',
     ),
     ChatWithLastMessage(
-      id: '5',
+      id: '7',
       contactId: '5',
-      contactFirstName: 'Mmm',
+      contactFirstName: 'Lukas',
       messageUid: '5',
     ),
     ChatWithLastMessage(
-      id: '5',
+      id: '8',
       contactId: '5',
-      contactFirstName: 'Mmm',
+      contactFirstName: 'Lukas',
       messageUid: '5',
     ),
     ChatWithLastMessage(
-      id: '5',
+      id: '9',
       contactId: '5',
-      contactFirstName: 'Mmm',
+      contactFirstName: 'Lukas',
       messageUid: '5',
     ),
     ChatWithLastMessage(
-      id: '5',
+      id: '10',
       contactId: '5',
-      contactFirstName: 'Mmm',
+      contactFirstName: 'Lukas',
       messageUid: '5',
     ),
     ChatWithLastMessage(
-      id: '5',
+      id: '11',
       contactId: '5',
-      contactFirstName: 'Mmm',
-      messageUid: '5',
-    ),
-    ChatWithLastMessage(
-      id: '5',
-      contactId: '5',
-      contactFirstName: 'heh',
+      contactFirstName: 'Lukas',
       messageUid: '5',
     ),
   ];

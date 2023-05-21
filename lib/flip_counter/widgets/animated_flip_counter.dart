@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-const Duration _duration = const Duration(milliseconds: 130);
+const Duration _duration = Duration(milliseconds: 130);
 
 const Curve _curve = Curves.linear;
 
@@ -28,14 +28,27 @@ class AnimatedFlipCounter extends StatefulWidget {
 
 class _AnimatedFlipCounterState extends State<AnimatedFlipCounter>
     with TickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
-    duration: _duration,
-    vsync: this,
-  )..forward();
-  late final Animation<double> _animation = CurvedAnimation(
-    parent: _controller,
-    curve: _curve,
-  );
+  late final AnimationController _controller;
+  late final Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: _duration,
+      vsync: this,
+    )..forward();
+    _animation = CurvedAnimation(
+      parent: _controller,
+      curve: _curve,
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   void didUpdateWidget(covariant AnimatedFlipCounter oldWidget) {
@@ -43,12 +56,6 @@ class _AnimatedFlipCounterState extends State<AnimatedFlipCounter>
     _controller
       ..value = 0
       ..forward();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 
   @override
@@ -60,7 +67,7 @@ class _AnimatedFlipCounterState extends State<AnimatedFlipCounter>
       width: width * max(widget.digits.length, widget.oldDigits.length),
       height: height,
       child: AnimatedBuilder(
-        animation: _animation,
+        animation: _controller,
         builder: (BuildContext context, Widget? child) {
           return Stack(
             clipBehavior: Clip.none,

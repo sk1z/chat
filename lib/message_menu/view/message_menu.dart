@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_login/message_menu/message_menu.dart';
-import 'package:flutter_firebase_login/styles/styles.dart';
+import 'package:chat/message_menu/message_menu.dart';
+import 'package:chat/styles/styles.dart';
 
 class MessageMenu extends StatelessWidget {
   const MessageMenu({

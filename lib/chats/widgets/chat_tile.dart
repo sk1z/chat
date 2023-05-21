@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_login/styles/styles.dart';
+import 'package:chat/styles/styles.dart';
 import 'package:intl/intl.dart';
 
 class ChatTile extends StatelessWidget {
@@ -57,80 +57,83 @@ class ChatTile extends StatelessWidget {
 
     final ChatTileStyle style = Theme.of(context).extension<ChatTileStyle>()!;
 
-    return InkWell(
-      onTap: onTap,
-      onLongPress: onLongPress,
-      child: SizedBox(
-        height: style.height,
-        child: Stack(
-          children: [
-            Padding(
-              padding: style.contentPadding ?? EdgeInsets.zero,
-              child: Row(
-                children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    width: style.avatarWidth,
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: style.avatarSize,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: style.avatarColor,
-                      ),
-                      child: Text(
-                        nameFirstLetters,
-                        style: style.avatarTextStyle,
+    return Material(
+      type: MaterialType.transparency,
+      child: InkWell(
+        onTap: onTap,
+        onLongPress: onLongPress,
+        child: SizedBox(
+          height: style.height,
+          child: Stack(
+            children: [
+              Padding(
+                padding: style.contentPadding ?? EdgeInsets.zero,
+                child: Row(
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      width: style.avatarWidth,
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: style.avatarSize,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: style.avatarColor,
+                        ),
+                        child: Text(
+                          nameFirstLetters,
+                          style: style.avatarTextStyle,
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                alignment: Alignment.bottomLeft,
+                                height: style.nameHeight,
+                                child: Text(name, style: style.nameStyle),
+                              ),
+                              if (sentTime != null)
+                                Container(
+                                  alignment: Alignment.bottomCenter,
+                                  padding: style.sentTimePadding,
+                                  height: style.sentTimeHeight,
+                                  child: Text(
+                                    sentTime,
+                                    style: style.sentTimeStyle,
+                                  ),
+                                ),
+                            ],
+                          ),
+                          if (message != null)
                             Container(
                               alignment: Alignment.bottomLeft,
-                              height: style.nameHeight,
-                              child: Text(name, style: style.nameStyle),
+                              padding: style.messagePadding,
+                              child: Text(message!, style: style.messageStyle),
                             ),
-                            if (sentTime != null)
-                              Container(
-                                alignment: Alignment.bottomCenter,
-                                padding: style.sentTimePadding,
-                                height: style.sentTimeHeight,
-                                child: Text(
-                                  sentTime,
-                                  style: style.sentTimeStyle,
-                                ),
-                              ),
-                          ],
-                        ),
-                        if (message != null)
-                          Container(
-                            alignment: Alignment.bottomLeft,
-                            padding: style.messagePadding,
-                            child: Text(message!, style: style.messageStyle),
-                          ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            if (divider)
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  margin: style.dividerPadding,
-                  color: style.dividerColor,
-                  height: style.dividerHeight,
+                  ],
                 ),
               ),
-          ],
+              if (divider)
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    margin: style.dividerPadding,
+                    color: style.dividerColor,
+                    height: style.dividerHeight,
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );

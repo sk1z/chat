@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_firebase_login/chat/chat.dart';
-import 'package:flutter_firebase_login/styles/styles.dart';
+import 'package:chat/chat/chat.dart';
+import 'package:chat/styles/styles.dart';
 
 class MessageInput extends StatelessWidget {
   MessageInput({super.key});

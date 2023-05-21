@@ -1,8 +1,8 @@
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_login/chat/chat.dart';
-import 'package:flutter_firebase_login/styles/styles.dart';
+import 'package:chat/chat/chat.dart';
+import 'package:chat/styles/styles.dart';
 import 'package:intl/intl.dart';
 
 class MessageBubble extends StatelessWidget {

@@ -7,8 +7,6 @@ environment:
   sdk: ">=2.13.0 <3.0.0"
 
 dependencies:
-  cache:
-    path: ../cache
   equatable: ^2.0.3
   firebase_auth: ^4.1.4
   flutter:

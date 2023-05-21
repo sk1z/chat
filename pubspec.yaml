@@ -1,5 +1,5 @@
-name: flutter_firebase_login
-description: A new Flutter project.
+name: chat
+description: Chat app with Flutter and Firebase.
 version: 1.0.0+1
 publish_to: none
 
@@ -26,7 +26,6 @@ dependencies:
   flutter_bloc: ^7.3.3
   font_awesome_flutter: ^10.4.0
   formz: ^0.4.0
-  google_fonts: ^2.1.0
   meta: ^1.3.0
   very_good_analysis: ^2.3.0
   intl: ^0.17.0
@@ -37,6 +36,8 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   go_router: ^6.0.1
+  boxy: ^2.0.9
+  sliver_tools: ^0.2.10
   
 dev_dependencies:
   flutter_test:

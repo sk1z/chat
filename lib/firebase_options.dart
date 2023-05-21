@@ -48,7 +48,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyDI9q_23rXwJNN5aKzARg05EaC8H9OxiHU',
-    appId: '1:268933439907:web:3b3d56fd14bba8a993ba16',
+    appId: '1:268933439907:web:d210fa788cca1d7b93ba16',
     messagingSenderId: '268933439907',
     projectId: 'chat-f322b',
     authDomain: 'chat-f322b.firebaseapp.com',
@@ -57,7 +57,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyA_XYJEf7h6dAsd9ZPFhUuzBNtTZ3Oa0lc',
-    appId: '1:268933439907:android:eb42f9e546c8f5e293ba16',
+    appId: '1:268933439907:android:20a2af44745ecf9e93ba16',
     messagingSenderId: '268933439907',
     projectId: 'chat-f322b',
     storageBucket: 'chat-f322b.appspot.com',
@@ -65,11 +65,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyC0uCETVxx65pR6KnEzL_0E86Z1hKjQCiM',
-    appId: '1:268933439907:ios:04598d8fe222b78a93ba16',
+    appId: '1:268933439907:ios:da71d4f55f8d620b93ba16',
     messagingSenderId: '268933439907',
     projectId: 'chat-f322b',
     storageBucket: 'chat-f322b.appspot.com',
-    iosClientId: '268933439907-6u69imfbi7n6cf7vbosopqk9v8hjjgoq.apps.googleusercontent.com',
-    iosBundleId: 'com.example.flutterFirebaseLogin',
+    androidClientId: '268933439907-ou627i35ad8pp5lelsq918693fjfv5k1.apps.googleusercontent.com',
+    iosClientId: '268933439907-semtsl8ov2f2stc9r5h7sdcjn2d0ou3n.apps.googleusercontent.com',
+    iosBundleId: 'sk1z.chat',
   );
 }

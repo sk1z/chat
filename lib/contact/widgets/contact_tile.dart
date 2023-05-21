@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_login/styles/styles.dart';
+import 'package:chat/styles/styles.dart';
 import 'package:intl/intl.dart';
 
 enum ContactTileMode { list, appBar }
@@ -93,47 +93,50 @@ class ContactTile extends StatelessWidget {
         break;
     }
 
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        height: style.height,
-        padding: contentPadding,
-        child: Row(
-          children: [
-            Container(
-              alignment: Alignment.centerLeft,
-              width: avatarWidth,
-              child: Container(
-                alignment: Alignment.center,
-                width: avatarSize,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: style.avatarColor,
-                ),
-                child: Text(nameFirstLetters, style: avatarTextStyle),
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  alignment: Alignment.bottomLeft,
-                  height: nameHeight,
-                  child: Text(name, style: nameStyle),
-                ),
-                Padding(
-                  padding: lastSeenPadding ?? EdgeInsets.zero,
-                  child: Text(
-                    lastSeenStatus,
-                    style: lastSeenStatus == 'online'
-                        ? style.onlineStyle
-                        : style.lastSeenStyle,
+    return Material(
+      type: MaterialType.transparency,
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          height: style.height,
+          padding: contentPadding,
+          child: Row(
+            children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                width: avatarWidth,
+                child: Container(
+                  alignment: Alignment.center,
+                  width: avatarSize,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: style.avatarColor,
                   ),
+                  child: Text(nameFirstLetters, style: avatarTextStyle),
                 ),
-              ],
-            ),
-          ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    alignment: Alignment.bottomLeft,
+                    height: nameHeight,
+                    child: Text(name, style: nameStyle),
+                  ),
+                  Padding(
+                    padding: lastSeenPadding ?? EdgeInsets.zero,
+                    child: Text(
+                      lastSeenStatus,
+                      style: lastSeenStatus == 'online'
+                          ? style.onlineStyle
+                          : style.lastSeenStyle,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

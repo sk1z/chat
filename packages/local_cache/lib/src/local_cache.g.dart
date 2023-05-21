@@ -3,7 +3,463 @@
 part of 'local_cache.dart';
 
 // ignore_for_file: type=lint
+class CacheMessage extends DataClass implements Insertable<CacheMessage> {
+  final String userId;
+  final String id;
+  final bool fromServer;
+  final String chat;
+  final String senderId;
+  final String message;
+  final DateTime sentTime;
+  final DateTime lastUpdated;
+  final bool deleted;
+  const CacheMessage(
+      {required this.userId,
+      required this.id,
+      required this.fromServer,
+      required this.chat,
+      required this.senderId,
+      required this.message,
+      required this.sentTime,
+      required this.lastUpdated,
+      required this.deleted});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['user_id'] = Variable<String>(userId);
+    map['id'] = Variable<String>(id);
+    map['from_server'] = Variable<bool>(fromServer);
+    map['chat'] = Variable<String>(chat);
+    map['sender_id'] = Variable<String>(senderId);
+    map['message'] = Variable<String>(message);
+    map['sent_time'] = Variable<DateTime>(sentTime);
+    map['last_updated'] = Variable<DateTime>(lastUpdated);
+    map['deleted'] = Variable<bool>(deleted);
+    return map;
+  }
+
+  CacheMessagesCompanion toCompanion(bool nullToAbsent) {
+    return CacheMessagesCompanion(
+      userId: Value(userId),
+      id: Value(id),
+      fromServer: Value(fromServer),
+      chat: Value(chat),
+      senderId: Value(senderId),
+      message: Value(message),
+      sentTime: Value(sentTime),
+      lastUpdated: Value(lastUpdated),
+      deleted: Value(deleted),
+    );
+  }
+
+  factory CacheMessage.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return CacheMessage(
+      userId: serializer.fromJson<String>(json['userId']),
+      id: serializer.fromJson<String>(json['id']),
+      fromServer: serializer.fromJson<bool>(json['fromServer']),
+      chat: serializer.fromJson<String>(json['chat']),
+      senderId: serializer.fromJson<String>(json['senderId']),
+      message: serializer.fromJson<String>(json['message']),
+      sentTime: serializer.fromJson<DateTime>(json['sentTime']),
+      lastUpdated: serializer.fromJson<DateTime>(json['lastUpdated']),
+      deleted: serializer.fromJson<bool>(json['deleted']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'userId': serializer.toJson<String>(userId),
+      'id': serializer.toJson<String>(id),
+      'fromServer': serializer.toJson<bool>(fromServer),
+      'chat': serializer.toJson<String>(chat),
+      'senderId': serializer.toJson<String>(senderId),
+      'message': serializer.toJson<String>(message),
+      'sentTime': serializer.toJson<DateTime>(sentTime),
+      'lastUpdated': serializer.toJson<DateTime>(lastUpdated),
+      'deleted': serializer.toJson<bool>(deleted),
+    };
+  }
+
+  CacheMessage copyWith(
+          {String? userId,
+          String? id,
+          bool? fromServer,
+          String? chat,
+          String? senderId,
+          String? message,
+          DateTime? sentTime,
+          DateTime? lastUpdated,
+          bool? deleted}) =>
+      CacheMessage(
+        userId: userId ?? this.userId,
+        id: id ?? this.id,
+        fromServer: fromServer ?? this.fromServer,
+        chat: chat ?? this.chat,
+        senderId: senderId ?? this.senderId,
+        message: message ?? this.message,
+        sentTime: sentTime ?? this.sentTime,
+        lastUpdated: lastUpdated ?? this.lastUpdated,
+        deleted: deleted ?? this.deleted,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('CacheMessage(')
+          ..write('userId: $userId, ')
+          ..write('id: $id, ')
+          ..write('fromServer: $fromServer, ')
+          ..write('chat: $chat, ')
+          ..write('senderId: $senderId, ')
+          ..write('message: $message, ')
+          ..write('sentTime: $sentTime, ')
+          ..write('lastUpdated: $lastUpdated, ')
+          ..write('deleted: $deleted')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(userId, id, fromServer, chat, senderId,
+      message, sentTime, lastUpdated, deleted);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is CacheMessage &&
+          other.userId == this.userId &&
+          other.id == this.id &&
+          other.fromServer == this.fromServer &&
+          other.chat == this.chat &&
+          other.senderId == this.senderId &&
+          other.message == this.message &&
+          other.sentTime == this.sentTime &&
+          other.lastUpdated == this.lastUpdated &&
+          other.deleted == this.deleted);
+}
+
+class CacheMessagesCompanion extends UpdateCompanion<CacheMessage> {
+  final Value<String> userId;
+  final Value<String> id;
+  final Value<bool> fromServer;
+  final Value<String> chat;
+  final Value<String> senderId;
+  final Value<String> message;
+  final Value<DateTime> sentTime;
+  final Value<DateTime> lastUpdated;
+  final Value<bool> deleted;
+  const CacheMessagesCompanion({
+    this.userId = const Value.absent(),
+    this.id = const Value.absent(),
+    this.fromServer = const Value.absent(),
+    this.chat = const Value.absent(),
+    this.senderId = const Value.absent(),
+    this.message = const Value.absent(),
+    this.sentTime = const Value.absent(),
+    this.lastUpdated = const Value.absent(),
+    this.deleted = const Value.absent(),
+  });
+  CacheMessagesCompanion.insert({
+    required String userId,
+    required String id,
+    required bool fromServer,
+    required String chat,
+    required String senderId,
+    required String message,
+    required DateTime sentTime,
+    required DateTime lastUpdated,
+    required bool deleted,
+  })  : userId = Value(userId),
+        id = Value(id),
+        fromServer = Value(fromServer),
+        chat = Value(chat),
+        senderId = Value(senderId),
+        message = Value(message),
+        sentTime = Value(sentTime),
+        lastUpdated = Value(lastUpdated),
+        deleted = Value(deleted);
+  static Insertable<CacheMessage> custom({
+    Expression<String>? userId,
+    Expression<String>? id,
+    Expression<bool>? fromServer,
+    Expression<String>? chat,
+    Expression<String>? senderId,
+    Expression<String>? message,
+    Expression<DateTime>? sentTime,
+    Expression<DateTime>? lastUpdated,
+    Expression<bool>? deleted,
+  }) {
+    return RawValuesInsertable({
+      if (userId != null) 'user_id': userId,
+      if (id != null) 'id': id,
+      if (fromServer != null) 'from_server': fromServer,
+      if (chat != null) 'chat': chat,
+      if (senderId != null) 'sender_id': senderId,
+      if (message != null) 'message': message,
+      if (sentTime != null) 'sent_time': sentTime,
+      if (lastUpdated != null) 'last_updated': lastUpdated,
+      if (deleted != null) 'deleted': deleted,
+    });
+  }
+
+  CacheMessagesCompanion copyWith(
+      {Value<String>? userId,
+      Value<String>? id,
+      Value<bool>? fromServer,
+      Value<String>? chat,
+      Value<String>? senderId,
+      Value<String>? message,
+      Value<DateTime>? sentTime,
+      Value<DateTime>? lastUpdated,
+      Value<bool>? deleted}) {
+    return CacheMessagesCompanion(
+      userId: userId ?? this.userId,
+      id: id ?? this.id,
+      fromServer: fromServer ?? this.fromServer,
+      chat: chat ?? this.chat,
+      senderId: senderId ?? this.senderId,
+      message: message ?? this.message,
+      sentTime: sentTime ?? this.sentTime,
+      lastUpdated: lastUpdated ?? this.lastUpdated,
+      deleted: deleted ?? this.deleted,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (fromServer.present) {
+      map['from_server'] = Variable<bool>(fromServer.value);
+    }
+    if (chat.present) {
+      map['chat'] = Variable<String>(chat.value);
+    }
+    if (senderId.present) {
+      map['sender_id'] = Variable<String>(senderId.value);
+    }
+    if (message.present) {
+      map['message'] = Variable<String>(message.value);
+    }
+    if (sentTime.present) {
+      map['sent_time'] = Variable<DateTime>(sentTime.value);
+    }
+    if (lastUpdated.present) {
+      map['last_updated'] = Variable<DateTime>(lastUpdated.value);
+    }
+    if (deleted.present) {
+      map['deleted'] = Variable<bool>(deleted.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CacheMessagesCompanion(')
+          ..write('userId: $userId, ')
+          ..write('id: $id, ')
+          ..write('fromServer: $fromServer, ')
+          ..write('chat: $chat, ')
+          ..write('senderId: $senderId, ')
+          ..write('message: $message, ')
+          ..write('sentTime: $sentTime, ')
+          ..write('lastUpdated: $lastUpdated, ')
+          ..write('deleted: $deleted')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $CacheMessagesTable extends CacheMessages
+    with TableInfo<$CacheMessagesTable, CacheMessage> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $CacheMessagesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _fromServerMeta =
+      const VerificationMeta('fromServer');
+  @override
+  late final GeneratedColumn<bool> fromServer =
+      GeneratedColumn<bool>('from_server', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("from_server" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _chatMeta = const VerificationMeta('chat');
+  @override
+  late final GeneratedColumn<String> chat = GeneratedColumn<String>(
+      'chat', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _senderIdMeta =
+      const VerificationMeta('senderId');
+  @override
+  late final GeneratedColumn<String> senderId = GeneratedColumn<String>(
+      'sender_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _messageMeta =
+      const VerificationMeta('message');
+  @override
+  late final GeneratedColumn<String> message = GeneratedColumn<String>(
+      'message', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _sentTimeMeta =
+      const VerificationMeta('sentTime');
+  @override
+  late final GeneratedColumn<DateTime> sentTime = GeneratedColumn<DateTime>(
+      'sent_time', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _lastUpdatedMeta =
+      const VerificationMeta('lastUpdated');
+  @override
+  late final GeneratedColumn<DateTime> lastUpdated = GeneratedColumn<DateTime>(
+      'last_updated', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _deletedMeta =
+      const VerificationMeta('deleted');
+  @override
+  late final GeneratedColumn<bool> deleted =
+      GeneratedColumn<bool>('deleted', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("deleted" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  @override
+  List<GeneratedColumn> get $columns => [
+        userId,
+        id,
+        fromServer,
+        chat,
+        senderId,
+        message,
+        sentTime,
+        lastUpdated,
+        deleted
+      ];
+  @override
+  String get aliasedName => _alias ?? 'cache_messages';
+  @override
+  String get actualTableName => 'cache_messages';
+  @override
+  VerificationContext validateIntegrity(Insertable<CacheMessage> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('from_server')) {
+      context.handle(
+          _fromServerMeta,
+          fromServer.isAcceptableOrUnknown(
+              data['from_server']!, _fromServerMeta));
+    } else if (isInserting) {
+      context.missing(_fromServerMeta);
+    }
+    if (data.containsKey('chat')) {
+      context.handle(
+          _chatMeta, chat.isAcceptableOrUnknown(data['chat']!, _chatMeta));
+    } else if (isInserting) {
+      context.missing(_chatMeta);
+    }
+    if (data.containsKey('sender_id')) {
+      context.handle(_senderIdMeta,
+          senderId.isAcceptableOrUnknown(data['sender_id']!, _senderIdMeta));
+    } else if (isInserting) {
+      context.missing(_senderIdMeta);
+    }
+    if (data.containsKey('message')) {
+      context.handle(_messageMeta,
+          message.isAcceptableOrUnknown(data['message']!, _messageMeta));
+    } else if (isInserting) {
+      context.missing(_messageMeta);
+    }
+    if (data.containsKey('sent_time')) {
+      context.handle(_sentTimeMeta,
+          sentTime.isAcceptableOrUnknown(data['sent_time']!, _sentTimeMeta));
+    } else if (isInserting) {
+      context.missing(_sentTimeMeta);
+    }
+    if (data.containsKey('last_updated')) {
+      context.handle(
+          _lastUpdatedMeta,
+          lastUpdated.isAcceptableOrUnknown(
+              data['last_updated']!, _lastUpdatedMeta));
+    } else if (isInserting) {
+      context.missing(_lastUpdatedMeta);
+    }
+    if (data.containsKey('deleted')) {
+      context.handle(_deletedMeta,
+          deleted.isAcceptableOrUnknown(data['deleted']!, _deletedMeta));
+    } else if (isInserting) {
+      context.missing(_deletedMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {userId, id, chat};
+  @override
+  CacheMessage map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return CacheMessage(
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      fromServer: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}from_server'])!,
+      chat: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}chat'])!,
+      senderId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}sender_id'])!,
+      message: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}message'])!,
+      sentTime: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}sent_time'])!,
+      lastUpdated: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}last_updated'])!,
+      deleted: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}deleted'])!,
+    );
+  }
+
+  @override
+  $CacheMessagesTable createAlias(String alias) {
+    return $CacheMessagesTable(attachedDatabase, alias);
+  }
+}
+
 class CacheChat extends DataClass implements Insertable<CacheChat> {
+  final String userId;
   final String id;
   final bool fromServer;
   final String contactId;
@@ -11,7 +467,8 @@ class CacheChat extends DataClass implements Insertable<CacheChat> {
   final DateTime lastUpdated;
   final DateTime? lastCleared;
   const CacheChat(
-      {required this.id,
+      {required this.userId,
+      required this.id,
       required this.fromServer,
       required this.contactId,
       required this.contactFirstName,
@@ -20,6 +477,7 @@ class CacheChat extends DataClass implements Insertable<CacheChat> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
+    map['user_id'] = Variable<String>(userId);
     map['id'] = Variable<String>(id);
     map['from_server'] = Variable<bool>(fromServer);
     map['contact_id'] = Variable<String>(contactId);
@@ -33,6 +491,7 @@ class CacheChat extends DataClass implements Insertable<CacheChat> {
 
   CacheChatsCompanion toCompanion(bool nullToAbsent) {
     return CacheChatsCompanion(
+      userId: Value(userId),
       id: Value(id),
       fromServer: Value(fromServer),
       contactId: Value(contactId),
@@ -48,6 +507,7 @@ class CacheChat extends DataClass implements Insertable<CacheChat> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return CacheChat(
+      userId: serializer.fromJson<String>(json['userId']),
       id: serializer.fromJson<String>(json['id']),
       fromServer: serializer.fromJson<bool>(json['fromServer']),
       contactId: serializer.fromJson<String>(json['contactId']),
@@ -60,6 +520,7 @@ class CacheChat extends DataClass implements Insertable<CacheChat> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
+      'userId': serializer.toJson<String>(userId),
       'id': serializer.toJson<String>(id),
       'fromServer': serializer.toJson<bool>(fromServer),
       'contactId': serializer.toJson<String>(contactId),
@@ -70,13 +531,15 @@ class CacheChat extends DataClass implements Insertable<CacheChat> {
   }
 
   CacheChat copyWith(
-          {String? id,
+          {String? userId,
+          String? id,
           bool? fromServer,
           String? contactId,
           String? contactFirstName,
           DateTime? lastUpdated,
           Value<DateTime?> lastCleared = const Value.absent()}) =>
       CacheChat(
+        userId: userId ?? this.userId,
         id: id ?? this.id,
         fromServer: fromServer ?? this.fromServer,
         contactId: contactId ?? this.contactId,
@@ -87,6 +550,7 @@ class CacheChat extends DataClass implements Insertable<CacheChat> {
   @override
   String toString() {
     return (StringBuffer('CacheChat(')
+          ..write('userId: $userId, ')
           ..write('id: $id, ')
           ..write('fromServer: $fromServer, ')
           ..write('contactId: $contactId, ')
@@ -98,12 +562,13 @@ class CacheChat extends DataClass implements Insertable<CacheChat> {
   }
 
   @override
-  int get hashCode => Object.hash(
-      id, fromServer, contactId, contactFirstName, lastUpdated, lastCleared);
+  int get hashCode => Object.hash(userId, id, fromServer, contactId,
+      contactFirstName, lastUpdated, lastCleared);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is CacheChat &&
+          other.userId == this.userId &&
           other.id == this.id &&
           other.fromServer == this.fromServer &&
           other.contactId == this.contactId &&
@@ -113,6 +578,7 @@ class CacheChat extends DataClass implements Insertable<CacheChat> {
 }
 
 class CacheChatsCompanion extends UpdateCompanion<CacheChat> {
+  final Value<String> userId;
   final Value<String> id;
   final Value<bool> fromServer;
   final Value<String> contactId;
@@ -120,6 +586,7 @@ class CacheChatsCompanion extends UpdateCompanion<CacheChat> {
   final Value<DateTime> lastUpdated;
   final Value<DateTime?> lastCleared;
   const CacheChatsCompanion({
+    this.userId = const Value.absent(),
     this.id = const Value.absent(),
     this.fromServer = const Value.absent(),
     this.contactId = const Value.absent(),
@@ -128,18 +595,21 @@ class CacheChatsCompanion extends UpdateCompanion<CacheChat> {
     this.lastCleared = const Value.absent(),
   });
   CacheChatsCompanion.insert({
+    required String userId,
     required String id,
     required bool fromServer,
     required String contactId,
     required String contactFirstName,
     required DateTime lastUpdated,
     this.lastCleared = const Value.absent(),
-  })  : id = Value(id),
+  })  : userId = Value(userId),
+        id = Value(id),
         fromServer = Value(fromServer),
         contactId = Value(contactId),
         contactFirstName = Value(contactFirstName),
         lastUpdated = Value(lastUpdated);
   static Insertable<CacheChat> custom({
+    Expression<String>? userId,
     Expression<String>? id,
     Expression<bool>? fromServer,
     Expression<String>? contactId,
@@ -148,6 +618,7 @@ class CacheChatsCompanion extends UpdateCompanion<CacheChat> {
     Expression<DateTime>? lastCleared,
   }) {
     return RawValuesInsertable({
+      if (userId != null) 'user_id': userId,
       if (id != null) 'id': id,
       if (fromServer != null) 'from_server': fromServer,
       if (contactId != null) 'contact_id': contactId,
@@ -158,13 +629,15 @@ class CacheChatsCompanion extends UpdateCompanion<CacheChat> {
   }
 
   CacheChatsCompanion copyWith(
-      {Value<String>? id,
+      {Value<String>? userId,
+      Value<String>? id,
       Value<bool>? fromServer,
       Value<String>? contactId,
       Value<String>? contactFirstName,
       Value<DateTime>? lastUpdated,
       Value<DateTime?>? lastCleared}) {
     return CacheChatsCompanion(
+      userId: userId ?? this.userId,
       id: id ?? this.id,
       fromServer: fromServer ?? this.fromServer,
       contactId: contactId ?? this.contactId,
@@ -177,6 +650,9 @@ class CacheChatsCompanion extends UpdateCompanion<CacheChat> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
     if (id.present) {
       map['id'] = Variable<String>(id.value);
     }
@@ -201,6 +677,7 @@ class CacheChatsCompanion extends UpdateCompanion<CacheChat> {
   @override
   String toString() {
     return (StringBuffer('CacheChatsCompanion(')
+          ..write('userId: $userId, ')
           ..write('id: $id, ')
           ..write('fromServer: $fromServer, ')
           ..write('contactId: $contactId, ')
@@ -218,6 +695,11 @@ class $CacheChatsTable extends CacheChats
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $CacheChatsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
@@ -260,8 +742,15 @@ class $CacheChatsTable extends CacheChats
       'last_cleared', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, fromServer, contactId, contactFirstName, lastUpdated, lastCleared];
+  List<GeneratedColumn> get $columns => [
+        userId,
+        id,
+        fromServer,
+        contactId,
+        contactFirstName,
+        lastUpdated,
+        lastCleared
+      ];
   @override
   String get aliasedName => _alias ?? 'cache_chats';
   @override
@@ -271,6 +760,12 @@ class $CacheChatsTable extends CacheChats
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     } else if (isInserting) {
@@ -316,11 +811,13 @@ class $CacheChatsTable extends CacheChats
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {userId, id};
   @override
   CacheChat map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return CacheChat(
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       fromServer: attachedDatabase.typeMapping
@@ -342,429 +839,16 @@ class $CacheChatsTable extends CacheChats
   }
 }
 
-class CacheMessage extends DataClass implements Insertable<CacheMessage> {
-  final String id;
-  final bool fromServer;
-  final String chat;
-  final String userId;
-  final String message;
-  final DateTime sentTime;
-  final DateTime lastUpdated;
-  final bool deleted;
-  const CacheMessage(
-      {required this.id,
-      required this.fromServer,
-      required this.chat,
-      required this.userId,
-      required this.message,
-      required this.sentTime,
-      required this.lastUpdated,
-      required this.deleted});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<String>(id);
-    map['from_server'] = Variable<bool>(fromServer);
-    map['chat'] = Variable<String>(chat);
-    map['user_id'] = Variable<String>(userId);
-    map['message'] = Variable<String>(message);
-    map['sent_time'] = Variable<DateTime>(sentTime);
-    map['last_updated'] = Variable<DateTime>(lastUpdated);
-    map['deleted'] = Variable<bool>(deleted);
-    return map;
-  }
-
-  CacheMessagesCompanion toCompanion(bool nullToAbsent) {
-    return CacheMessagesCompanion(
-      id: Value(id),
-      fromServer: Value(fromServer),
-      chat: Value(chat),
-      userId: Value(userId),
-      message: Value(message),
-      sentTime: Value(sentTime),
-      lastUpdated: Value(lastUpdated),
-      deleted: Value(deleted),
-    );
-  }
-
-  factory CacheMessage.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return CacheMessage(
-      id: serializer.fromJson<String>(json['id']),
-      fromServer: serializer.fromJson<bool>(json['fromServer']),
-      chat: serializer.fromJson<String>(json['chat']),
-      userId: serializer.fromJson<String>(json['userId']),
-      message: serializer.fromJson<String>(json['message']),
-      sentTime: serializer.fromJson<DateTime>(json['sentTime']),
-      lastUpdated: serializer.fromJson<DateTime>(json['lastUpdated']),
-      deleted: serializer.fromJson<bool>(json['deleted']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<String>(id),
-      'fromServer': serializer.toJson<bool>(fromServer),
-      'chat': serializer.toJson<String>(chat),
-      'userId': serializer.toJson<String>(userId),
-      'message': serializer.toJson<String>(message),
-      'sentTime': serializer.toJson<DateTime>(sentTime),
-      'lastUpdated': serializer.toJson<DateTime>(lastUpdated),
-      'deleted': serializer.toJson<bool>(deleted),
-    };
-  }
-
-  CacheMessage copyWith(
-          {String? id,
-          bool? fromServer,
-          String? chat,
-          String? userId,
-          String? message,
-          DateTime? sentTime,
-          DateTime? lastUpdated,
-          bool? deleted}) =>
-      CacheMessage(
-        id: id ?? this.id,
-        fromServer: fromServer ?? this.fromServer,
-        chat: chat ?? this.chat,
-        userId: userId ?? this.userId,
-        message: message ?? this.message,
-        sentTime: sentTime ?? this.sentTime,
-        lastUpdated: lastUpdated ?? this.lastUpdated,
-        deleted: deleted ?? this.deleted,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('CacheMessage(')
-          ..write('id: $id, ')
-          ..write('fromServer: $fromServer, ')
-          ..write('chat: $chat, ')
-          ..write('userId: $userId, ')
-          ..write('message: $message, ')
-          ..write('sentTime: $sentTime, ')
-          ..write('lastUpdated: $lastUpdated, ')
-          ..write('deleted: $deleted')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      id, fromServer, chat, userId, message, sentTime, lastUpdated, deleted);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is CacheMessage &&
-          other.id == this.id &&
-          other.fromServer == this.fromServer &&
-          other.chat == this.chat &&
-          other.userId == this.userId &&
-          other.message == this.message &&
-          other.sentTime == this.sentTime &&
-          other.lastUpdated == this.lastUpdated &&
-          other.deleted == this.deleted);
-}
-
-class CacheMessagesCompanion extends UpdateCompanion<CacheMessage> {
-  final Value<String> id;
-  final Value<bool> fromServer;
-  final Value<String> chat;
-  final Value<String> userId;
-  final Value<String> message;
-  final Value<DateTime> sentTime;
-  final Value<DateTime> lastUpdated;
-  final Value<bool> deleted;
-  const CacheMessagesCompanion({
-    this.id = const Value.absent(),
-    this.fromServer = const Value.absent(),
-    this.chat = const Value.absent(),
-    this.userId = const Value.absent(),
-    this.message = const Value.absent(),
-    this.sentTime = const Value.absent(),
-    this.lastUpdated = const Value.absent(),
-    this.deleted = const Value.absent(),
-  });
-  CacheMessagesCompanion.insert({
-    required String id,
-    required bool fromServer,
-    required String chat,
-    required String userId,
-    required String message,
-    required DateTime sentTime,
-    required DateTime lastUpdated,
-    required bool deleted,
-  })  : id = Value(id),
-        fromServer = Value(fromServer),
-        chat = Value(chat),
-        userId = Value(userId),
-        message = Value(message),
-        sentTime = Value(sentTime),
-        lastUpdated = Value(lastUpdated),
-        deleted = Value(deleted);
-  static Insertable<CacheMessage> custom({
-    Expression<String>? id,
-    Expression<bool>? fromServer,
-    Expression<String>? chat,
-    Expression<String>? userId,
-    Expression<String>? message,
-    Expression<DateTime>? sentTime,
-    Expression<DateTime>? lastUpdated,
-    Expression<bool>? deleted,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (fromServer != null) 'from_server': fromServer,
-      if (chat != null) 'chat': chat,
-      if (userId != null) 'user_id': userId,
-      if (message != null) 'message': message,
-      if (sentTime != null) 'sent_time': sentTime,
-      if (lastUpdated != null) 'last_updated': lastUpdated,
-      if (deleted != null) 'deleted': deleted,
-    });
-  }
-
-  CacheMessagesCompanion copyWith(
-      {Value<String>? id,
-      Value<bool>? fromServer,
-      Value<String>? chat,
-      Value<String>? userId,
-      Value<String>? message,
-      Value<DateTime>? sentTime,
-      Value<DateTime>? lastUpdated,
-      Value<bool>? deleted}) {
-    return CacheMessagesCompanion(
-      id: id ?? this.id,
-      fromServer: fromServer ?? this.fromServer,
-      chat: chat ?? this.chat,
-      userId: userId ?? this.userId,
-      message: message ?? this.message,
-      sentTime: sentTime ?? this.sentTime,
-      lastUpdated: lastUpdated ?? this.lastUpdated,
-      deleted: deleted ?? this.deleted,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<String>(id.value);
-    }
-    if (fromServer.present) {
-      map['from_server'] = Variable<bool>(fromServer.value);
-    }
-    if (chat.present) {
-      map['chat'] = Variable<String>(chat.value);
-    }
-    if (userId.present) {
-      map['user_id'] = Variable<String>(userId.value);
-    }
-    if (message.present) {
-      map['message'] = Variable<String>(message.value);
-    }
-    if (sentTime.present) {
-      map['sent_time'] = Variable<DateTime>(sentTime.value);
-    }
-    if (lastUpdated.present) {
-      map['last_updated'] = Variable<DateTime>(lastUpdated.value);
-    }
-    if (deleted.present) {
-      map['deleted'] = Variable<bool>(deleted.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('CacheMessagesCompanion(')
-          ..write('id: $id, ')
-          ..write('fromServer: $fromServer, ')
-          ..write('chat: $chat, ')
-          ..write('userId: $userId, ')
-          ..write('message: $message, ')
-          ..write('sentTime: $sentTime, ')
-          ..write('lastUpdated: $lastUpdated, ')
-          ..write('deleted: $deleted')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $CacheMessagesTable extends CacheMessages
-    with TableInfo<$CacheMessagesTable, CacheMessage> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $CacheMessagesTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<String> id = GeneratedColumn<String>(
-      'id', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _fromServerMeta =
-      const VerificationMeta('fromServer');
-  @override
-  late final GeneratedColumn<bool> fromServer =
-      GeneratedColumn<bool>('from_server', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("from_server" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
-  static const VerificationMeta _chatMeta = const VerificationMeta('chat');
-  @override
-  late final GeneratedColumn<String> chat = GeneratedColumn<String>(
-      'chat', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES cache_chats (id)'));
-  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
-  @override
-  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
-      'user_id', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _messageMeta =
-      const VerificationMeta('message');
-  @override
-  late final GeneratedColumn<String> message = GeneratedColumn<String>(
-      'message', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _sentTimeMeta =
-      const VerificationMeta('sentTime');
-  @override
-  late final GeneratedColumn<DateTime> sentTime = GeneratedColumn<DateTime>(
-      'sent_time', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _lastUpdatedMeta =
-      const VerificationMeta('lastUpdated');
-  @override
-  late final GeneratedColumn<DateTime> lastUpdated = GeneratedColumn<DateTime>(
-      'last_updated', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _deletedMeta =
-      const VerificationMeta('deleted');
-  @override
-  late final GeneratedColumn<bool> deleted =
-      GeneratedColumn<bool>('deleted', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("deleted" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
-  @override
-  List<GeneratedColumn> get $columns =>
-      [id, fromServer, chat, userId, message, sentTime, lastUpdated, deleted];
-  @override
-  String get aliasedName => _alias ?? 'cache_messages';
-  @override
-  String get actualTableName => 'cache_messages';
-  @override
-  VerificationContext validateIntegrity(Insertable<CacheMessage> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    } else if (isInserting) {
-      context.missing(_idMeta);
-    }
-    if (data.containsKey('from_server')) {
-      context.handle(
-          _fromServerMeta,
-          fromServer.isAcceptableOrUnknown(
-              data['from_server']!, _fromServerMeta));
-    } else if (isInserting) {
-      context.missing(_fromServerMeta);
-    }
-    if (data.containsKey('chat')) {
-      context.handle(
-          _chatMeta, chat.isAcceptableOrUnknown(data['chat']!, _chatMeta));
-    } else if (isInserting) {
-      context.missing(_chatMeta);
-    }
-    if (data.containsKey('user_id')) {
-      context.handle(_userIdMeta,
-          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
-    } else if (isInserting) {
-      context.missing(_userIdMeta);
-    }
-    if (data.containsKey('message')) {
-      context.handle(_messageMeta,
-          message.isAcceptableOrUnknown(data['message']!, _messageMeta));
-    } else if (isInserting) {
-      context.missing(_messageMeta);
-    }
-    if (data.containsKey('sent_time')) {
-      context.handle(_sentTimeMeta,
-          sentTime.isAcceptableOrUnknown(data['sent_time']!, _sentTimeMeta));
-    } else if (isInserting) {
-      context.missing(_sentTimeMeta);
-    }
-    if (data.containsKey('last_updated')) {
-      context.handle(
-          _lastUpdatedMeta,
-          lastUpdated.isAcceptableOrUnknown(
-              data['last_updated']!, _lastUpdatedMeta));
-    } else if (isInserting) {
-      context.missing(_lastUpdatedMeta);
-    }
-    if (data.containsKey('deleted')) {
-      context.handle(_deletedMeta,
-          deleted.isAcceptableOrUnknown(data['deleted']!, _deletedMeta));
-    } else if (isInserting) {
-      context.missing(_deletedMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id, chat};
-  @override
-  CacheMessage map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return CacheMessage(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
-      fromServer: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}from_server'])!,
-      chat: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}chat'])!,
-      userId: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
-      message: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}message'])!,
-      sentTime: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}sent_time'])!,
-      lastUpdated: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}last_updated'])!,
-      deleted: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}deleted'])!,
-    );
-  }
-
-  @override
-  $CacheMessagesTable createAlias(String alias) {
-    return $CacheMessagesTable(attachedDatabase, alias);
-  }
-}
-
 abstract class _$LocalCacheClient extends GeneratedDatabase {
   _$LocalCacheClient(QueryExecutor e) : super(e);
-  late final $CacheChatsTable cacheChats = $CacheChatsTable(this);
   late final $CacheMessagesTable cacheMessages = $CacheMessagesTable(this);
+  late final $CacheChatsTable cacheChats = $CacheChatsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [cacheChats, cacheMessages];
+      [cacheMessages, cacheChats];
   @override
   DriftDatabaseOptions get options =>
       const DriftDatabaseOptions(storeDateTimeAsText: true);

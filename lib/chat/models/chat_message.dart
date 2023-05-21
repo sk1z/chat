@@ -1,7 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-// enum MessageStatus { unknown, sent }
-
 enum MessageSelectStatus { none, single, selected, unselected }
 
 class Message extends Equatable {
@@ -17,7 +15,6 @@ class Message extends Equatable {
   final bool isMy;
   final String message;
   final DateTime lastUpdated;
-  // final MessageStatus status;
   final MessageSelectStatus selectStatus;
 
   @override

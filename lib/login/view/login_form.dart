@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_firebase_login/login/login.dart';
-import 'package:flutter_firebase_login/login_data_input/login_data_input.dart';
-import 'package:flutter_firebase_login/styles/styles.dart';
+import 'package:chat/login/login.dart';
+import 'package:chat/login_data_input/login_data_input.dart';
+import 'package:chat/styles/styles.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';

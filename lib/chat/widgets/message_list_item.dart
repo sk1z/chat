@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_login/chat/chat.dart';
-import 'package:flutter_firebase_login/styles/styles.dart';
+import 'package:chat/chat/chat.dart';
+import 'package:chat/styles/styles.dart';
 
 class MessageListItem extends StatefulWidget {
   const MessageListItem({

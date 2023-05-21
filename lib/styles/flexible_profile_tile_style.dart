@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class FlexibleProfileTileStyle
     extends ThemeExtension<FlexibleProfileTileStyle> {
   const FlexibleProfileTileStyle({
+    this.expandedHeight,
     this.contentPadding,
     this.avatarColor,
     this.avatarWidth,
@@ -23,6 +24,7 @@ class FlexibleProfileTileStyle
     this.expandedOnlinePadding,
   });
 
+  final double? expandedHeight;
   final EdgeInsetsGeometry? contentPadding;
   final Color? avatarColor;
   final double? avatarWidth;
@@ -46,6 +48,7 @@ class FlexibleProfileTileStyle
     if (other is! FlexibleProfileTileStyle) return this;
 
     return FlexibleProfileTileStyle(
+      expandedHeight: lerpDouble(expandedHeight, other.expandedHeight, t),
       contentPadding:
           EdgeInsetsGeometry.lerp(contentPadding, other.contentPadding, t),
       avatarColor: Color.lerp(avatarColor, other.avatarColor, t),

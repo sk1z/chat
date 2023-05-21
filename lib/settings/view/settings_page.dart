@@ -1,13 +1,14 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_firebase_login/app/app.dart';
-import 'package:flutter_firebase_login/header/header.dart';
-import 'package:flutter_firebase_login/item_divider/item_divider.dart';
-import 'package:flutter_firebase_login/item_tile/item_tile.dart';
-import 'package:flutter_firebase_login/item_box/item_box.dart';
-import 'package:flutter_firebase_login/profile_edit_menu/profile_edit_menu.dart';
-import 'package:flutter_firebase_login/settings/settings.dart';
+import 'package:chat/app/app.dart';
+import 'package:chat/header/header.dart';
+import 'package:chat/item_divider/item_divider.dart';
+import 'package:chat/item_tile/item_tile.dart';
+import 'package:chat/item_box/item_box.dart';
+import 'package:chat/profile_edit_menu/profile_edit_menu.dart';
+import 'package:chat/settings/settings.dart';
+import 'package:chat/styles/flexible_profile_tile_style.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
@@ -17,8 +18,8 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // SettingsAppBarStyle
-    final double expandedHeight = 144.0;
+    final FlexibleProfileTileStyle flexibleProfileTileStyle =
+        Theme.of(context).extension<FlexibleProfileTileStyle>()!;
 
     return BlocProvider(
       create: (_) => SettingsCubit(
@@ -47,13 +48,12 @@ class SettingsPage extends StatelessWidget {
             SliverAppBar(
               floating: true,
               pinned: true,
-              expandedHeight: expandedHeight,
+              expandedHeight: flexibleProfileTileStyle.expandedHeight,
               flexibleSpace: BlocBuilder<AppBloc, AppState>(
                 buildWhen: (AppState previous, AppState current) =>
                     previous.profile != current.profile,
                 builder: (BuildContext context, AppState state) {
                   return FlexibleProfileTile(
-                    expandedHeight: expandedHeight,
                     firstName: state.profile.firstName,
                     lastName: state.profile.lastName,
                   );
@@ -124,7 +124,7 @@ class _EmailUpdateTile extends StatelessWidget {
       builder: (BuildContext context, AppState state) {
         return ItemTile(
           onTap: () => context.go('/settings/email_update'),
-          // title: '+7 (917) 955-53-28',
+          // title: '+7 (917) 105-53-78',
           title: state.user.email ?? 'None',
           // subtitle: 'Tap to change phone number',
           subtitle: 'Tap to change email',
@@ -147,7 +147,7 @@ class _GoogleUpdateTile extends StatelessWidget {
         return ItemTile(
           onTap: () => context.read<SettingsCubit>().updateGoogle(),
           // title: 'None',
-          // title: 'skiz1488@gmail.com',
+          // title: 'some@mail.com',
           title: state.user.googleProvider?.email ?? 'Link google account',
           // subtitle: 'Username',
           subtitle: state.user.googleProvider != null

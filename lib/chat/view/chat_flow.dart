@@ -2,10 +2,10 @@ import 'package:firestore_repository/firestore_repository.dart';
 import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_firebase_login/app_icons.dart';
-import 'package:flutter_firebase_login/chat/chat.dart';
-import 'package:flutter_firebase_login/message_menu/message_menu.dart';
-import 'package:flutter_firebase_login/chats/chats.dart';
+import 'package:chat/app_icons.dart';
+import 'package:chat/chat/chat.dart';
+import 'package:chat/message_menu/message_menu.dart';
+import 'package:chat/chats/chats.dart';
 import 'package:local_cache/local_cache.dart';
 
 class ChatFlow extends StatelessWidget {

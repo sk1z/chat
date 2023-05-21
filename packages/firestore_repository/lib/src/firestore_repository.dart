@@ -5,10 +5,8 @@ import 'package:firestore_repository/firestore_repository.dart';
 import 'package:local_cache/local_cache.dart';
 
 class FirestoreRepository {
-  FirestoreRepository(
-      {FirebaseFirestore? firestore, required LocalCacheClient localChache})
-      : _firestore = firestore ?? FirebaseFirestore.instance,
-        _localCache = localChache {
+  FirestoreRepository({FirebaseFirestore? firestore})
+      : _firestore = firestore ?? FirebaseFirestore.instance {
     _chatsRef = _firestore.collection('chats').withConverter<FirestoreChat>(
         fromFirestore: (snapshot, _) =>
             FirestoreChat.fromJson(snapshot.data()!),
@@ -20,7 +18,6 @@ class FirestoreRepository {
   }
 
   final FirebaseFirestore _firestore;
-  final LocalCacheClient _localCache;
   late final CollectionReference<Profile> _profilesRef;
   late final CollectionReference<FirestoreChat> _chatsRef;
 
@@ -42,7 +39,7 @@ class FirestoreRepository {
     });
   }
 
-  Stream<void> chatsCaching(DateTime? chatsLastFetch) {
+  Stream<CacheChats> cacheChats(DateTime? chatsLastFetch) {
     return _chatsRef
         .where('participant_ids', arrayContains: _userId)
         .where('last_updated', isGreaterThan: chatsLastFetch)
@@ -60,6 +57,7 @@ class FirestoreRepository {
             final contact = chat.participants
                 .firstWhere((participant) => participant.id != _userId);
             chats.add(CacheChat(
+              userId: _userId,
               id: doc.id,
               contactId: contact.id,
               contactFirstName: contact.firstName,
@@ -72,11 +70,11 @@ class FirestoreRepository {
             break;
         }
       }
-      _localCache.insertChats(chats, fromServer);
+      return CacheChats(chats, fromServer);
     });
   }
 
-  Stream<void> messagesCaching(
+  Stream<CacheMessages> cacheMessages(
       String chatId, DateTime? chatLastCleared, DateTime? lastFetchTime) {
     final messagesRef = _chatsRef
         .doc(chatId)
@@ -121,9 +119,10 @@ class FirestoreRepository {
             final doc = change.doc;
             final message = doc.data()!;
             messages.add(CacheMessage(
+              userId: _userId,
               chat: chatId,
               id: doc.id,
-              userId: message.userId,
+              senderId: message.userId,
               message: message.deleted ? '' : message.message,
               sentTime: message.sentTime,
               lastUpdated: message.lastUpdated,
@@ -135,7 +134,7 @@ class FirestoreRepository {
             break;
         }
       }
-      _localCache.insertMessages(messages, fromServer);
+      return CacheMessages(messages, fromServer);
     });
   }
 
@@ -229,4 +228,91 @@ class FirestoreRepository {
   Future<void> clearProfile() {
     return _profilesRef.doc(_userId).set(Profile.empty);
   }
+
+  Future<void> addExampleMessages(
+      String chatId, String userId, String contactId) async {
+    final batch = _firestore.batch();
+    final chatRef = _chatsRef.doc(chatId);
+    final messagesRef = chatRef.collection('messages');
+    final now = DateTime.now();
+    batch.update(chatRef, {
+      'last_updated': now,
+      'last_cleared': now,
+    });
+    final snapshot = await messagesRef.get();
+    for (final doc in snapshot.docs) {
+      batch.delete(doc.reference);
+    }
+    batch.commit();
+    final messages = _createExampleMessages(userId, contactId);
+    for (final message in messages) {
+      messagesRef.add(message.toJson());
+    }
+    for (int i = 0; i < 15; i++) {
+      messagesRef.add(FirestoreMessage(
+        userId: userId,
+        message: '$i',
+        sentTime: DateTime(2022, 11, 5, 12, i),
+        lastUpdated: DateTime(2022, 11, 5, 12, i),
+      ).toJson());
+    }
+    for (int i = 20; i < 30; i++) {
+      messagesRef.add(FirestoreMessage(
+        userId: contactId,
+        message: '$i',
+        sentTime: DateTime(2022, 11, 5, 15, i),
+        lastUpdated: DateTime(2022, 11, 5, 15, i),
+      ).toJson());
+    }
+    await Future.delayed(Duration(milliseconds: 300));
+    _profilesRef.doc(_userId).set(Profile.empty);
+    chatRef.update({
+      'last_updated': now,
+      'last_cleared': DateTime(2021),
+    });
+    await Future.delayed(Duration(milliseconds: 1000));
+    _profilesRef.doc(_userId).set(Profile(firstName: 'skiz'));
+  }
+}
+
+List<FirestoreMessage> _createExampleMessages(String userId, String contactId) {
+  return [
+    FirestoreMessage(
+      userId: contactId,
+      message: 'Hi',
+      sentTime: DateTime(2022, 11, 5, 13, 1),
+      lastUpdated: DateTime(2022, 11, 5, 13, 1),
+    ),
+    FirestoreMessage(
+      userId: contactId,
+      message: 'Helloooo?',
+      sentTime: DateTime(2022, 11, 5, 13, 2),
+      lastUpdated: DateTime(2022, 11, 5, 13, 2),
+    ),
+    FirestoreMessage(
+      userId: userId,
+      message: 'Hi James',
+      sentTime: DateTime(2022, 11, 5, 13, 5),
+      lastUpdated: DateTime(2022, 11, 5, 13, 5),
+    ),
+    FirestoreMessage(
+      userId: contactId,
+      message: 'Do you want to watch the basketball game tonight?'
+          ' We could order some chinese food :)',
+      sentTime: DateTime(2022, 11, 5, 13, 7),
+      lastUpdated: DateTime(2022, 11, 5, 13, 7),
+    ),
+    FirestoreMessage(
+      userId: userId,
+      message: 'Sounds great! Let us meet at 7 PM, okay?',
+      sentTime: DateTime(2022, 11, 5, 13, 7, 15),
+      lastUpdated: DateTime(2022, 11, 5, 13, 7, 15),
+    ),
+    FirestoreMessage(
+      userId: contactId,
+      message: 'See you later!',
+      sentTime: DateTime(2022, 11, 5, 13, 9),
+      lastUpdated: DateTime(2022, 11, 5, 13, 9),
+    ),
+  ];
 }

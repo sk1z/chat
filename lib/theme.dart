@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'styles/styles.dart';
 
@@ -11,12 +10,7 @@ final _releaseTheme = _createTheme;
 
 ThemeData get _createTheme {
   return ThemeData(
-    // textTheme: GoogleFonts.robotoTextTheme()
-    //     // openSansTextTheme
-    //     .apply(
-    //   bodyColor: Colors.white,
-    // ),
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       displayLarge: TextStyle(),
       displayMedium: TextStyle(),
       displaySmall: TextStyle(),
@@ -33,9 +27,9 @@ ThemeData get _createTheme {
       labelMedium: TextStyle(),
       labelSmall: TextStyle(),
     ).apply(bodyColor: Colors.white),
-    primaryColorDark: const Color(0xFF0097A7),
-    primaryColorLight: const Color(0xFFB2EBF2),
-    colorScheme: const ColorScheme.light(secondary: Color(0xFF009688)),
+    primaryColorDark: const Color(0xff0097A7),
+    primaryColorLight: const Color(0xffB2EBF2),
+    colorScheme: const ColorScheme.light(secondary: Color(0xff009688)),
     scaffoldBackgroundColor: const Color(0xff151e27),
     textSelectionTheme: const TextSelectionThemeData(
       cursorColor: Colors.white,
@@ -52,7 +46,7 @@ ThemeData get _createTheme {
     iconTheme: const IconThemeData(color: Colors.white70),
     highlightColor: const Color(0x952E3D4E),
     splashColor: const Color(0xff394a5e),
-    cardColor: const Color(0xFF293849),
+    cardColor: const Color(0xff293849),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: Color(0xff5fa3de),
       foregroundColor: Colors.white,
@@ -80,7 +74,7 @@ ThemeData get _createTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),
-          backgroundColor: const Color(0xFFFFD600),
+          backgroundColor: const Color(0xffffd600),
         ),
       ),
       GoogleLoginButtonStyle(
@@ -95,7 +89,7 @@ ThemeData get _createTheme {
         labelStyle: const TextStyle(color: Colors.white),
       ),
       const SignUpTextButtonStyle(
-        textStyle: TextStyle(color: Color(0xFF00BCD4)),
+        textStyle: TextStyle(color: Color(0xff00BCD4)),
       ),
       const SignUpPageStyle(
         backgroundColor: Color(0xff1d2733),
@@ -302,11 +296,11 @@ ThemeData get _createTheme {
         ),
         myMessageLastUpdateStyle: TextStyle(
             fontSize: 11,
-            color: Color(0xFF7DA7CB),
+            color: Color(0xff7DA7CB),
             fontWeight: FontWeight.w600),
         contactMessageLastUpdateStyle: TextStyle(
             fontSize: 11,
-            color: Color(0xFF738291),
+            color: Color(0xff738291),
             fontWeight: FontWeight.w600),
         maxWidthPercentage: 75,
       ),
@@ -356,6 +350,7 @@ ThemeData get _createTheme {
         dividerIndent: 20,
       ),
       const FlexibleProfileTileStyle(
+        expandedHeight: 144,
         contentPadding: EdgeInsets.only(
           left: 8,
           right: 48,

@@ -1,7 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_login/styles/styles.dart';
+import 'package:chat/styles/styles.dart';
 
 enum ItemTileMode { standard, accent }
 

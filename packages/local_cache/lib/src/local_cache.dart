@@ -172,6 +172,13 @@ class LocalCacheClient extends _$LocalCacheClient {
       );
     }).watch();
   }
+
+  Future<void> clearCache() {
+    return batch((batch) {
+      batch.deleteAll(cacheMessages);
+      batch.deleteAll(cacheChats);
+    });
+  }
 }
 
 class ChatWithLastMessage {

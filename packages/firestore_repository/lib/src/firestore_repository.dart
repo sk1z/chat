@@ -271,7 +271,89 @@ class FirestoreRepository {
       'last_cleared': DateTime(2021),
     });
     await Future.delayed(Duration(milliseconds: 1000));
-    _profilesRef.doc(_userId).set(Profile(firstName: 'skiz'));
+    _profilesRef.doc(_userId).set(Profile(
+          firstName: 'Leyton',
+          lastName: 'Crosby',
+        ));
+  }
+
+  Future<void> addExampleProfiles() async {
+    final batch = _firestore.batch();
+    final chatsSnapshot = await _chatsRef.get();
+    for (final chatDoc in chatsSnapshot.docs) {
+      final chatRef = chatDoc.reference;
+      batch.delete(chatRef);
+      final messagesRef = chatRef.collection('messages');
+      final messagesSnapshot = await messagesRef.get();
+      for (final messageDoc in messagesSnapshot.docs) {
+        batch.delete(messageDoc.reference);
+      }
+    }
+    final profilesSnapshot = await _profilesRef.get();
+    for (final profileDoc in profilesSnapshot.docs) {
+      batch.delete(profileDoc.reference);
+    }
+
+    batch.set(
+        _profilesRef.doc(_userId),
+        Profile(
+          firstName: 'Leyton',
+          lastName: 'Crosby',
+        ));
+    batch.set(
+        _profilesRef.doc('1'),
+        Profile(
+          firstName: 'James',
+          lastName: 'Potts',
+        ));
+    batch.set(
+        _profilesRef.doc('2'),
+        Profile(
+          firstName: 'Katy',
+          lastName: 'Lewis',
+        ));
+    batch.set(
+        _profilesRef.doc('3'),
+        Profile(
+          firstName: 'Tom',
+        ));
+
+    final now = DateTime.now();
+
+    final chat1 = FirestoreChat(
+      participants: [
+        FirestoreChatParticipant(id: _userId, firstName: _profile.firstName),
+        FirestoreChatParticipant(id: '1', firstName: 'James')
+      ],
+      lastUpdated: now,
+    );
+    final chat2 = FirestoreChat(
+      participants: [
+        FirestoreChatParticipant(id: _userId, firstName: _profile.firstName),
+        FirestoreChatParticipant(id: '2', firstName: 'Katy')
+      ],
+      lastUpdated: now,
+    );
+    final chat3 = FirestoreChat(
+      participants: [
+        FirestoreChatParticipant(id: _userId, firstName: _profile.firstName),
+        FirestoreChatParticipant(id: '3', firstName: 'Tom')
+      ],
+      lastUpdated: now,
+    );
+    final chatId1 =
+        userId.compareTo('1').isNegative ? '${userId}_1' : '1_$userId';
+    final chatId2 =
+        userId.compareTo('2').isNegative ? '${userId}_2' : '2_$userId';
+    final chatId3 =
+        userId.compareTo('3').isNegative ? '${userId}_3' : '3_$userId';
+    batch.set(_chatsRef.doc(chatId1), chat1, SetOptions(merge: true));
+    batch.set(_chatsRef.doc(chatId2), chat2, SetOptions(merge: true));
+    batch.set(_chatsRef.doc(chatId3), chat3, SetOptions(merge: true));
+
+    await addExampleMessages(chatId1, userId, '1');
+
+    return batch.commit();
   }
 }
 

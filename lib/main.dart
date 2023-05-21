@@ -18,6 +18,9 @@ Future<void> main() async {
   }
   final localCache = LocalCacheClient();
 
+  await localCache.clearCache();
+  await firestoreRepository.addExampleProfiles();
+
   runApp(App(
     authenticationRepository: authenticationRepository,
     firestoreRepository: firestoreRepository,

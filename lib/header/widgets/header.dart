@@ -4,10 +4,7 @@ import 'package:chat/styles/styles.dart';
 enum HeaderMode { tight, wide }
 
 class Header extends StatelessWidget {
-  const Header({
-    required this.title,
-    this.mode = HeaderMode.tight,
-  });
+  const Header({super.key, required this.title, this.mode = HeaderMode.tight});
 
   final String title;
   final HeaderMode mode;

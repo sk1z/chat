@@ -18,13 +18,13 @@ class SignUpForm extends StatelessWidget {
       child: SingleChildScrollView(
         child: Padding(
           padding: style.padding ?? EdgeInsets.zero,
-          child: Column(
+          child: const Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const _EmailInput(),
-              const _PasswordInput(),
-              const _ConfirmPasswordInput(),
-              const _SignUpButton(),
+              _EmailInput(),
+              _PasswordInput(),
+              _ConfirmPasswordInput(),
+              _SignUpButton(),
             ],
           ),
         ),
@@ -43,7 +43,6 @@ class _EmailInput extends StatelessWidget {
           previous.email != current.email,
       builder: (BuildContext context, SignUpState state) {
         return LoginDataInput(
-          key: const Key('signUpForm_emailInput_textField'),
           onChanged: (String email) =>
               context.read<SignUpCubit>().emailChanged(email),
           textInputAction: TextInputAction.next,
@@ -66,7 +65,6 @@ class _PasswordInput extends StatelessWidget {
           previous.password != current.password,
       builder: (BuildContext context, SignUpState state) {
         return LoginDataInput(
-          key: const Key('signUpForm_passwordInput_textField'),
           onChanged: (String password) =>
               context.read<SignUpCubit>().passwordChanged(password),
           textInputAction: TextInputAction.next,
@@ -90,7 +88,6 @@ class _ConfirmPasswordInput extends StatelessWidget {
           previous.confirmedPassword != current.confirmedPassword,
       builder: (BuildContext context, SignUpState state) {
         return LoginDataInput(
-          key: const Key('signUpForm_confirmedPasswordInput_textField'),
           onChanged: (String confirmPassword) => context
               .read<SignUpCubit>()
               .confirmedPasswordChanged(confirmPassword),
@@ -124,12 +121,11 @@ class _SignUpButton extends StatelessWidget {
         return Padding(
           padding: style.padding ?? EdgeInsets.zero,
           child: ElevatedButton(
-            key: const Key('signUpForm_continue_raisedButton'),
             onPressed: state.status.isValidated
                 ? () => context.read<SignUpCubit>().signUpFormSubmitted()
                 : null,
-            child: const Text('SIGN UP'),
             style: style.style,
+            child: const Text('SIGN UP'),
           ),
         );
       },

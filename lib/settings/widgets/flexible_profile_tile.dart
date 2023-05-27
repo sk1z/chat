@@ -6,7 +6,8 @@ import 'package:chat/styles/styles.dart';
 const double _leftOffset = kToolbarHeight;
 
 class FlexibleProfileTile extends StatelessWidget {
-  const FlexibleProfileTile({required this.firstName, this.lastName});
+  const FlexibleProfileTile(
+      {super.key, required this.firstName, this.lastName});
 
   final String firstName;
   final String? lastName;

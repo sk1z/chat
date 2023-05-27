@@ -79,5 +79,5 @@ class FlexibleProfileTileStyle
   }
 
   @override
-  FlexibleProfileTileStyle copyWith() => FlexibleProfileTileStyle();
+  FlexibleProfileTileStyle copyWith() => const FlexibleProfileTileStyle();
 }

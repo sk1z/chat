@@ -22,6 +22,7 @@ import 'package:local_cache/local_cache.dart';
 
 class App extends StatelessWidget {
   App({
+    super.key,
     required this.authenticationRepository,
     required this.firestoreRepository,
     required this.localCache,
@@ -111,9 +112,9 @@ class App extends StatelessWidget {
                   return SlideWithFadeTransitionPage(
                     key: state.pageKey,
                     child: ChatFlow(
-                      contactId: state.params['contact_id']!,
+                      contactId: state.pathParameters['contact_id']!,
                       contactFirstName:
-                          state.queryParams['contact_first_name']!,
+                          state.queryParameters['contact_first_name']!,
                     ),
                   );
                 },
@@ -177,19 +178,20 @@ class App extends StatelessWidget {
   String? _guard(BuildContext context, GoRouterState state) {
     switch (_appState.status) {
       case AppStatus.unauthenticated:
-        if (state.subloc != '/login' && state.subloc != '/sign_up') {
+        if (state.matchedLocation != '/login' &&
+            state.matchedLocation != '/sign_up') {
           return '/login';
         }
         break;
       case AppStatus.emptyProfile:
-        if (state.subloc != '/profile_creation') {
+        if (state.matchedLocation != '/profile_creation') {
           return '/profile_creation';
         }
         break;
       case AppStatus.authenticated:
-        if (state.subloc == '/login' ||
-            state.subloc == '/sign_up' ||
-            state.subloc == '/profile_creation') {
+        if (state.matchedLocation == '/login' ||
+            state.matchedLocation == '/sign_up' ||
+            state.matchedLocation == '/profile_creation') {
           return '/';
         }
         break;

@@ -33,5 +33,5 @@ class ItemDividerStyle extends ThemeExtension<ItemDividerStyle> {
   }
 
   @override
-  ItemDividerStyle copyWith() => ItemDividerStyle();
+  ItemDividerStyle copyWith() => const ItemDividerStyle();
 }

@@ -36,7 +36,7 @@ class _FlipCounterState extends State<FlipCounter> {
       textDirection: TextDirection.ltr,
       textScaleFactor: MediaQuery.of(context).textScaleFactor,
     )..layout();
-    final Color color = textStyle.color ?? Color(0xffff0000);
+    final Color color = textStyle.color ?? const Color(0xffff0000);
 
     final int? staticValue;
     final int? animatedValue;

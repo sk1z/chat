@@ -26,5 +26,5 @@ class ItemBoxStyle extends ThemeExtension<ItemBoxStyle> {
   }
 
   @override
-  ItemBoxStyle copyWith() => ItemBoxStyle();
+  ItemBoxStyle copyWith() => const ItemBoxStyle();
 }

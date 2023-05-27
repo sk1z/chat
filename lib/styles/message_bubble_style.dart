@@ -63,5 +63,5 @@ class MessageBubbleStyle extends ThemeExtension<MessageBubbleStyle> {
   }
 
   @override
-  MessageBubbleStyle copyWith() => MessageBubbleStyle();
+  MessageBubbleStyle copyWith() => const MessageBubbleStyle();
 }

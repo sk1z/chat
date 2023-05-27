@@ -9,7 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:formz/formz.dart';
 
 class EmailUpdateFlow extends StatelessWidget {
-  const EmailUpdateFlow();
+  const EmailUpdateFlow({super.key});
 
   @override
   Widget build(BuildContext context) {

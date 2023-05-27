@@ -21,5 +21,5 @@ class AccountDataInputStyle extends ThemeExtension<AccountDataInputStyle> {
   }
 
   @override
-  AccountDataInputStyle copyWith() => AccountDataInputStyle();
+  AccountDataInputStyle copyWith() => const AccountDataInputStyle();
 }

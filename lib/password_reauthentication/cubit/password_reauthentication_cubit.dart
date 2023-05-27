@@ -10,7 +10,7 @@ class PasswordReauthenticationCubit
   PasswordReauthenticationCubit(
       {required void Function(String password)? onPasswordConfirmed})
       : _onPasswordConfirmed = onPasswordConfirmed,
-        super(PasswordReauthenticationState());
+        super(const PasswordReauthenticationState());
 
   final void Function(String password)? _onPasswordConfirmed;
 

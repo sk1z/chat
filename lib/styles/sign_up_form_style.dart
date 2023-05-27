@@ -18,5 +18,5 @@ class SignUpFormStyle extends ThemeExtension<SignUpFormStyle> {
   }
 
   @override
-  SignUpFormStyle copyWith() => SignUpFormStyle();
+  SignUpFormStyle copyWith() => const SignUpFormStyle();
 }

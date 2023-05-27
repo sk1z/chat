@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:chat/styles/profile_edit_menu_style.dart';
 
 class ProfileEditMenu extends StatefulWidget {
-  ProfileEditMenu({super.key, required this.items, required this.animation});
+  const ProfileEditMenu(
+      {super.key, required this.items, required this.animation});
 
   final List<Widget> items;
   final Animation<double> animation;
@@ -40,7 +41,7 @@ class _ProfileEditMenuState extends State<ProfileEditMenu> {
     } else {
       menuOpens = false;
     }
-    if (menuOpens != this._menuOpens) {
+    if (menuOpens != _menuOpens) {
       _menuOpens = menuOpens;
       setState(() {});
     }
@@ -57,7 +58,7 @@ class _ProfileEditMenuState extends State<ProfileEditMenu> {
     end: Offset.zero,
   );
   static final CurveTween _heightWithOpacity =
-      CurveTween(curve: Interval(0, 0.8));
+      CurveTween(curve: const Interval(0, 0.8));
 
   @override
   Widget build(BuildContext context) {

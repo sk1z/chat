@@ -57,20 +57,20 @@ List<Page<dynamic>> _onGeneratePages(
             animation: animation,
             onWillPop: () => context.read<ChatCubit>().messagesDeselected(),
             items: [
-              MessageMenuItem(
-                icon: const Icon(AppIcons.reply_outline),
+              const MessageMenuItem(
+                icon: Icon(AppIcons.replyOutline),
                 title: 'Reply',
               ),
-              MessageMenuItem(
-                icon: const Icon(Icons.copy),
+              const MessageMenuItem(
+                icon: Icon(Icons.copy),
                 title: 'Copy',
               ),
-              MessageMenuItem(
-                icon: const Icon(AppIcons.forward_outline),
+              const MessageMenuItem(
+                icon: Icon(AppIcons.forwardOutline),
                 title: 'Forward',
               ),
-              MessageMenuItem(
-                icon: const Icon(AppIcons.pin_outline),
+              const MessageMenuItem(
+                icon: Icon(AppIcons.pinOutline),
                 title: 'Pin',
               ),
               MessageMenuItem(

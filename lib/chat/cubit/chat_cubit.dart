@@ -24,8 +24,8 @@ class ChatCubit extends Cubit<ChatState> {
         super(ChatState(contactFirstName: contactFirstName)) {
     final userId = _firestoreRepository.userId;
     _chatId = userId.compareTo(_contactId).isNegative
-        ? '$userId\_$contactId'
-        : '$_contactId\_$userId';
+        ? '${userId}_$contactId'
+        : '${_contactId}_$userId';
     _messagesSubscription =
         _localCache.watchMessages(_chatId).listen((cacheMessages) {
       final messages = cacheMessages.map((message) {

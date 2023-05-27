@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-class AccountDataValidatorStyle extends ThemeExtension<AccountDataValidatorStyle> {
-  const AccountDataValidatorStyle({this.alignment, this.padding, this.errorStyle});
+class AccountDataValidatorStyle
+    extends ThemeExtension<AccountDataValidatorStyle> {
+  const AccountDataValidatorStyle(
+      {this.alignment, this.padding, this.errorStyle});
 
   final AlignmentGeometry? alignment;
   final EdgeInsetsGeometry? padding;
@@ -20,5 +22,5 @@ class AccountDataValidatorStyle extends ThemeExtension<AccountDataValidatorStyle
   }
 
   @override
-  AccountDataValidatorStyle copyWith() => AccountDataValidatorStyle();
+  AccountDataValidatorStyle copyWith() => const AccountDataValidatorStyle();
 }

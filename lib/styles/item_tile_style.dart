@@ -70,5 +70,5 @@ class ItemTileStyle extends ThemeExtension<ItemTileStyle> {
   }
 
   @override
-  ItemTileStyle copyWith() => ItemTileStyle();
+  ItemTileStyle copyWith() => const ItemTileStyle();
 }

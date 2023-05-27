@@ -54,7 +54,6 @@ class _EmailInput extends StatelessWidget {
           previous.email != current.email,
       builder: (BuildContext context, LoginState state) {
         return LoginDataInput(
-          key: const Key('loginForm_emailInput_textField'),
           onChanged: (String email) =>
               context.read<LoginCubit>().emailChanged(email),
           textInputAction: TextInputAction.next,
@@ -77,7 +76,6 @@ class _PasswordInput extends StatelessWidget {
           previous.password != current.password,
       builder: (BuildContext context, LoginState state) {
         return LoginDataInput(
-          key: const Key('loginForm_passwordInput_textField'),
           onChanged: (String password) =>
               context.read<LoginCubit>().passwordChanged(password),
           onSubmitted: (_) => context.read<LoginCubit>().logInWithCredentials(),
@@ -109,12 +107,11 @@ class _LoginButton extends StatelessWidget {
         return Padding(
           padding: style.padding ?? EdgeInsets.zero,
           child: ElevatedButton(
-            key: const Key('loginForm_continue_raisedButton'),
             onPressed: state.status.isValidated
                 ? () => context.read<LoginCubit>().logInWithCredentials()
                 : null,
-            child: const Text('LOGIN'),
             style: style.style,
+            child: const Text('LOGIN'),
           ),
         );
       },
@@ -133,7 +130,6 @@ class _GoogleLoginButton extends StatelessWidget {
     return Padding(
       padding: style.padding ?? EdgeInsets.zero,
       child: ElevatedButton.icon(
-        key: const Key('loginForm_googleLogin_raisedButton'),
         onPressed: () => context.read<LoginCubit>().logInWithGoogle(),
         icon: IconTheme(
           data: style.iconTheme ?? const IconThemeData(),

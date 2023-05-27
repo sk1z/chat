@@ -15,7 +15,7 @@ class ContactList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void openChatPage(String contactId, String contactFirstName) {
-      context.go('/chats/${contactId}?contact_first_name=${contactFirstName}');
+      context.go('/chats/$contactId?contact_first_name=$contactFirstName');
     }
 
     final DateTime now = DateTime.now();

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:chat/styles/styles.dart';
 
 class MessageMenuItem extends StatelessWidget {
-  const MessageMenuItem({required this.icon, required this.title, this.onTap});
+  const MessageMenuItem(
+      {super.key, required this.icon, required this.title, this.onTap});
 
   final Icon icon;
   final String title;

@@ -3,6 +3,7 @@ import 'package:chat/chat/chat.dart';
 
 class InnerMessageBubble extends SingleChildRenderObjectWidget {
   const InnerMessageBubble({
+    super.key,
     super.child,
     required this.text,
     required this.textDirection,

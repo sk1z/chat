@@ -18,5 +18,5 @@ class LoginButtonStyle extends ThemeExtension<LoginButtonStyle> {
   }
 
   @override
-  LoginButtonStyle copyWith() => LoginButtonStyle();
+  LoginButtonStyle copyWith() => const LoginButtonStyle();
 }

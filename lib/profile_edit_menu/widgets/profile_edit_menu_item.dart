@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:chat/styles/styles.dart';
 
 class ProfileEditMenuItem extends StatelessWidget {
-  ProfileEditMenuItem(
+  const ProfileEditMenuItem(
       {super.key, required this.icon, required this.title, this.onTap});
 
   final Icon icon;

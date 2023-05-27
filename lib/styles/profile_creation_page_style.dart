@@ -17,5 +17,5 @@ class ProfileCreationPageStyle
   }
 
   @override
-  ProfileCreationPageStyle copyWith() => ProfileCreationPageStyle();
+  ProfileCreationPageStyle copyWith() => const ProfileCreationPageStyle();
 }

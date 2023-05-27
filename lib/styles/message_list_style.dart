@@ -16,5 +16,5 @@ class MessageListStyle extends ThemeExtension<MessageListStyle> {
   }
 
   @override
-  MessageListStyle copyWith() => MessageListStyle();
+  MessageListStyle copyWith() => const MessageListStyle();
 }

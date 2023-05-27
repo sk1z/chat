@@ -21,5 +21,5 @@ class FlipCounterStyle extends ThemeExtension<FlipCounterStyle> {
   }
 
   @override
-  FlipCounterStyle copyWith() => FlipCounterStyle();
+  FlipCounterStyle copyWith() => const FlipCounterStyle();
 }

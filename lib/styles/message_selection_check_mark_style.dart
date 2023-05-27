@@ -28,5 +28,6 @@ class MessageSelectionCheckMarkStyle
   }
 
   @override
-  MessageSelectionCheckMarkStyle copyWith() => MessageSelectionCheckMarkStyle();
+  MessageSelectionCheckMarkStyle copyWith() =>
+      const MessageSelectionCheckMarkStyle();
 }

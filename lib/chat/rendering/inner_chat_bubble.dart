@@ -16,7 +16,7 @@ class RenderInnerChatBubble extends RenderBox
         _maxWidthPercentage = maxWidthPercentage,
         _maxWidth = maxWidth;
 
-  TextPainter _textPainter;
+  final TextPainter _textPainter;
   double _maxWidthPercentage;
   double _maxWidth;
 
@@ -26,9 +26,6 @@ class RenderInnerChatBubble extends RenderBox
       case RenderComparison.metadata:
         return;
       case RenderComparison.paint:
-        _textPainter.text = value;
-        markNeedsPaint();
-        break;
       case RenderComparison.layout:
         _textPainter.text = value;
         markNeedsLayout();

@@ -46,7 +46,7 @@ class ItemTile extends StatelessWidget {
 
     return InkWell(
       onTap: onTap,
-      child: Container(
+      child: SizedBox(
         height: subtitle != null ? style.heightWithSubtitle : style.height,
         child: Stack(
           children: [

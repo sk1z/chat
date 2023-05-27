@@ -24,5 +24,5 @@ class NameInputStyle extends ThemeExtension<NameInputStyle> {
   }
 
   @override
-  NameInputStyle copyWith() => NameInputStyle();
+  NameInputStyle copyWith() => const NameInputStyle();
 }

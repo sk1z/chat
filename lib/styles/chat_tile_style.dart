@@ -70,5 +70,5 @@ class ChatTileStyle extends ThemeExtension<ChatTileStyle> {
   }
 
   @override
-  ChatTileStyle copyWith() => ChatTileStyle();
+  ChatTileStyle copyWith() => const ChatTileStyle();
 }

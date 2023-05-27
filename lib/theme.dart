@@ -194,8 +194,8 @@ ThemeData get _createTheme {
         height: 12,
         heightWithTitle: 32,
         titleAlignment: Alignment.centerLeft,
-        titlePadding: const EdgeInsets.only(left: 17),
-        titleStyle: const TextStyle(
+        titlePadding: EdgeInsets.only(left: 17),
+        titleStyle: TextStyle(
           color: Color(0xff7d8b99),
           fontWeight: FontWeight.bold,
         ),

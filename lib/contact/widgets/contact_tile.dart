@@ -37,20 +37,19 @@ class ContactTile extends StatelessWidget {
     final String lastSeenStatus;
 
     if (lastSeen != null && now != null) {
-      final DateTime _lastSeen = DateTime(
-          this.lastSeen!.year, this.lastSeen!.month, this.lastSeen!.day);
-      final DateTime _now =
-          DateTime(this.now!.year, this.now!.month, this.now!.day);
-      final int daysDifference = _now.difference(_lastSeen).inDays;
+      final DateTime lastSeenDay =
+          DateTime(lastSeen!.year, lastSeen!.month, lastSeen!.day);
+      final DateTime nowDay = DateTime(now!.year, now!.month, now!.day);
+      final int daysDifference = nowDay.difference(lastSeenDay).inDays;
 
       if (daysDifference > 1) {
-        lastSeenStatus = 'last seen ${_dateFormat_MMMd.format(lastSeen!)}'
-            ' at ${_dateFormat_Kmma.format(lastSeen!)}';
+        lastSeenStatus = 'last seen ${_dateFormatMMMd.format(lastSeen!)}'
+            ' at ${_dateFormatKmma.format(lastSeen!)}';
       } else if (daysDifference > 0) {
         lastSeenStatus =
-            'last seen yesterday at ${_dateFormat_Kmma.format(lastSeen!)}';
+            'last seen yesterday at ${_dateFormatKmma.format(lastSeen!)}';
       } else if (now!.difference(lastSeen!).inMinutes > 5) {
-        lastSeenStatus = 'last seen at ${_dateFormat_Kmma.format(lastSeen!)}';
+        lastSeenStatus = 'last seen at ${_dateFormatKmma.format(lastSeen!)}';
       } else {
         lastSeenStatus = 'online';
       }
@@ -142,7 +141,7 @@ class ContactTile extends StatelessWidget {
     );
   }
 
-  static final DateFormat _dateFormat_MMMd = DateFormat('MMM d');
+  static final DateFormat _dateFormatMMMd = DateFormat('MMM d');
 
-  static final DateFormat _dateFormat_Kmma = DateFormat('K:mm a');
+  static final DateFormat _dateFormatKmma = DateFormat('K:mm a');
 }

@@ -9,7 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:formz/formz.dart';
 
 class PasswordUpdateFlow extends StatelessWidget {
-  const PasswordUpdateFlow();
+  const PasswordUpdateFlow({super.key});
 
   @override
   Widget build(BuildContext context) {

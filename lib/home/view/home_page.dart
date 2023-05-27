@@ -36,7 +36,7 @@ class HomePage extends StatelessWidget {
           children: [
             const DrawerHeader(child: SizedBox.shrink()),
             ItemTile(
-              icon: Icon(FontAwesomeIcons.solidUser, size: 19.5),
+              icon: const Icon(FontAwesomeIcons.solidUser, size: 19.5),
               title: 'Contacts',
               onTap: () {
                 Navigator.pop(context);
@@ -44,7 +44,7 @@ class HomePage extends StatelessWidget {
               },
             ),
             ItemTile(
-              icon: Icon(FontAwesomeIcons.gear, size: 23.5),
+              icon: const Icon(FontAwesomeIcons.gear, size: 23.5),
               title: 'Settings',
               onTap: () {
                 Navigator.pop(context);

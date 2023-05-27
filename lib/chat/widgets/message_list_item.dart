@@ -4,6 +4,7 @@ import 'package:chat/styles/styles.dart';
 
 class MessageListItem extends StatefulWidget {
   const MessageListItem({
+    super.key,
     required this.messageId,
     required this.isMyMessage,
     required this.messageContent,

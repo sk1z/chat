@@ -16,5 +16,5 @@ class NameEditPageStyle extends ThemeExtension<NameEditPageStyle> {
   }
 
   @override
-  NameEditPageStyle copyWith() => NameEditPageStyle();
+  NameEditPageStyle copyWith() => const NameEditPageStyle();
 }

@@ -6,7 +6,8 @@ import 'package:chat/styles/styles.dart';
 import 'package:intl/intl.dart';
 
 class MessageBubble extends StatelessWidget {
-  MessageBubble({
+  const MessageBubble({
+    super.key,
     required this.messageId,
     required this.isMyMessage,
     required this.messageContent,

@@ -16,5 +16,5 @@ class SignUpPageStyle extends ThemeExtension<SignUpPageStyle> {
   }
 
   @override
-  SignUpPageStyle copyWith() => SignUpPageStyle();
+  SignUpPageStyle copyWith() => const SignUpPageStyle();
 }

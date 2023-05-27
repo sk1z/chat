@@ -37,5 +37,5 @@ class HeaderStyle extends ThemeExtension<HeaderStyle> {
   }
 
   @override
-  HeaderStyle copyWith() => HeaderStyle();
+  HeaderStyle copyWith() => const HeaderStyle();
 }

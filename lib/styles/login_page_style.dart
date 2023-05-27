@@ -16,5 +16,5 @@ class LoginPageStyle extends ThemeExtension<LoginPageStyle> {
   }
 
   @override
-  LoginPageStyle copyWith() => LoginPageStyle();
+  LoginPageStyle copyWith() => const LoginPageStyle();
 }

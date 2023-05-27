@@ -20,5 +20,5 @@ class AccountDataHelperStyle extends ThemeExtension<AccountDataHelperStyle> {
   }
 
   @override
-  AccountDataHelperStyle copyWith() => AccountDataHelperStyle();
+  AccountDataHelperStyle copyWith() => const AccountDataHelperStyle();
 }

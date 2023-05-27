@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:chat/styles/styles.dart';
 
 class MessageSelectionCheckMark extends StatelessWidget {
-  const MessageSelectionCheckMark({required this.messageSelected});
+  const MessageSelectionCheckMark({super.key, required this.messageSelected});
 
   final bool messageSelected;
 

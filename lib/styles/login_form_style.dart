@@ -25,5 +25,5 @@ class LoginFormStyle extends ThemeExtension<LoginFormStyle> {
   }
 
   @override
-  LoginFormStyle copyWith() => LoginFormStyle();
+  LoginFormStyle copyWith() => const LoginFormStyle();
 }

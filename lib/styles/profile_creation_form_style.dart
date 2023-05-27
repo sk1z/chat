@@ -17,5 +17,5 @@ class ProfileCreationFormStyle
   }
 
   @override
-  ProfileCreationFormStyle copyWith() => ProfileCreationFormStyle();
+  ProfileCreationFormStyle copyWith() => const ProfileCreationFormStyle();
 }

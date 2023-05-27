@@ -38,18 +38,18 @@ class ChatTile extends StatelessWidget {
 
     final String? sentTime;
     if (this.sentTime != null && now != null) {
-      final DateTime _sentTime = DateTime(
+      final DateTime sentDay = DateTime(
           this.sentTime!.year, this.sentTime!.month, this.sentTime!.day);
       final DateTime now =
           DateTime(this.now!.year, this.now!.month, this.now!.day);
-      final int daysDifference = now.difference(_sentTime).inDays;
+      final int daysDifference = now.difference(sentDay).inDays;
 
       if (daysDifference > 6) {
-        sentTime = _dateFormat_MMMd.format(this.sentTime!);
+        sentTime = _dateFormatMMMd.format(this.sentTime!);
       } else if (daysDifference > 0) {
-        sentTime = _dateFormat_E.format(this.sentTime!);
+        sentTime = _dateFormatE.format(this.sentTime!);
       } else {
-        sentTime = _dateFormat_Kmma.format(this.sentTime!);
+        sentTime = _dateFormatKmma.format(this.sentTime!);
       }
     } else {
       sentTime = null;
@@ -139,9 +139,9 @@ class ChatTile extends StatelessWidget {
     );
   }
 
-  static final DateFormat _dateFormat_MMMd = DateFormat('MMM d');
+  static final DateFormat _dateFormatMMMd = DateFormat('MMM d');
 
-  static final DateFormat _dateFormat_E = DateFormat('E');
+  static final DateFormat _dateFormatE = DateFormat('E');
 
-  static final DateFormat _dateFormat_Kmma = DateFormat('K:mm a');
+  static final DateFormat _dateFormatKmma = DateFormat('K:mm a');
 }

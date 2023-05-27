@@ -18,5 +18,5 @@ class ProfileCreationSubmitButtonStyle
 
   @override
   ProfileCreationSubmitButtonStyle copyWith() =>
-      ProfileCreationSubmitButtonStyle();
+      const ProfileCreationSubmitButtonStyle();
 }

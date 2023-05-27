@@ -43,5 +43,5 @@ class MessageInputStyle extends ThemeExtension<MessageInputStyle> {
   }
 
   @override
-  MessageInputStyle copyWith() => MessageInputStyle();
+  MessageInputStyle copyWith() => const MessageInputStyle();
 }

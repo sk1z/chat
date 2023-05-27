@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 enum MessageSelectStatus { none, single, selected, unselected }
 
 class Message extends Equatable {
-  Message({
+  const Message({
     required this.id,
     required this.isMy,
     required this.message,

@@ -16,5 +16,5 @@ class NameEditFormStyle extends ThemeExtension<NameEditFormStyle> {
   }
 
   @override
-  NameEditFormStyle copyWith() => NameEditFormStyle();
+  NameEditFormStyle copyWith() => const NameEditFormStyle();
 }

@@ -34,5 +34,5 @@ class ProfileEditMenuItemStyle
   }
 
   @override
-  ProfileEditMenuItemStyle copyWith() => ProfileEditMenuItemStyle();
+  ProfileEditMenuItemStyle copyWith() => const ProfileEditMenuItemStyle();
 }

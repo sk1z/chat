@@ -25,5 +25,5 @@ class MessageMenuItemStyle extends ThemeExtension<MessageMenuItemStyle> {
   }
 
   @override
-  MessageMenuItemStyle copyWith() => MessageMenuItemStyle();
+  MessageMenuItemStyle copyWith() => const MessageMenuItemStyle();
 }

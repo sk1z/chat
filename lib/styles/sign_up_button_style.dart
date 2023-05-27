@@ -18,5 +18,5 @@ class SignUpButtonStyle extends ThemeExtension<SignUpButtonStyle> {
   }
 
   @override
-  SignUpButtonStyle copyWith() => SignUpButtonStyle();
+  SignUpButtonStyle copyWith() => const SignUpButtonStyle();
 }

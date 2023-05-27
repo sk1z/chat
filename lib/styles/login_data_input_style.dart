@@ -18,5 +18,5 @@ class LoginDataInputStyle extends ThemeExtension<LoginDataInputStyle> {
   }
 
   @override
-  LoginDataInputStyle copyWith() => LoginDataInputStyle();
+  LoginDataInputStyle copyWith() => const LoginDataInputStyle();
 }

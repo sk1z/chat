@@ -93,12 +93,12 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ),
                 const ItemDivider(),
-                ItemBox(
+                const ItemBox(
                   child: Column(children: [
-                    const Header(title: 'Account'),
-                    const _EmailUpdateTile(),
-                    const _GoogleUpdateTile(),
-                    const _PasswordUpdateTile(),
+                    Header(title: 'Account'),
+                    _EmailUpdateTile(),
+                    _GoogleUpdateTile(),
+                    _PasswordUpdateTile(),
                   ]),
                 ),
                 const ItemDivider(),
@@ -191,7 +191,7 @@ class _PasswordRemoveTile extends StatelessWidget {
           previous.user.passwordProvider != current.user.passwordProvider,
       builder: (BuildContext context, AppState state) {
         if (state.user.passwordProvider == null) {
-          return SizedBox.shrink();
+          return const SizedBox.shrink();
         }
 
         return ItemTile(

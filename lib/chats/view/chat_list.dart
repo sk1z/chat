@@ -19,14 +19,14 @@ class ChatList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void openChatPage(String contactId, String contactFirstName) {
-      context.go('/chats/${contactId}?contact_first_name=${contactFirstName}');
+      context.go('/chats/$contactId?contact_first_name=$contactFirstName');
     }
 
     final DateTime now = DateTime.now();
 
     // final List<ChatWithLastMessage> chats = createChats(now);
 
-    int? firstContact = null;
+    int? firstContact;
     for (int i = 0; i < chats.length; i++) {
       if (chats[i].message == null) {
         firstContact = i;
@@ -121,7 +121,7 @@ List<ChatWithLastMessage> createChats(DateTime time) {
       contactId: '2',
       contactFirstName: 'Emm',
       message: 'zz',
-      messageSentTime: time.add(Duration(
+      messageSentTime: time.add(const Duration(
         days: -6,
       )),
     ),
@@ -131,7 +131,7 @@ List<ChatWithLastMessage> createChats(DateTime time) {
       contactFirstName: 'Oi',
       messageUid: '3',
       message: 'Hi',
-      messageSentTime: time.add(Duration(
+      messageSentTime: time.add(const Duration(
         hours: -1,
       )),
     ),
@@ -141,7 +141,7 @@ List<ChatWithLastMessage> createChats(DateTime time) {
       contactFirstName: 'Josefin',
       messageUid: '3',
       message: 'Hi',
-      messageSentTime: time.add(Duration(
+      messageSentTime: time.add(const Duration(
         hours: -1,
       )),
     ),
@@ -151,7 +151,7 @@ List<ChatWithLastMessage> createChats(DateTime time) {
       contactFirstName: 'He',
       messageUid: '4',
       message: 'chto',
-      messageSentTime: time.add(Duration(
+      messageSentTime: time.add(const Duration(
         days: -1,
       )),
     ),
@@ -161,7 +161,7 @@ List<ChatWithLastMessage> createChats(DateTime time) {
       contactFirstName: 'Heh',
       messageUid: '5',
       message: 'la la',
-      messageSentTime: time.add(Duration(
+      messageSentTime: time.add(const Duration(
         days: -7,
         minutes: -1,
       )),

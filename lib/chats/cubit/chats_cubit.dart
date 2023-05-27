@@ -51,8 +51,9 @@ class ChatsCubit extends Cubit<ChatsState> {
   Future<void> close() {
     _chatsSubscription?.cancel();
     _cacheChatsSubscription?.cancel();
-    _cacheMessagesSubscriptions.values
-        .forEach((subscription) => subscription.cancel());
+    for (final subscription in _cacheMessagesSubscriptions.values) {
+      subscription.cancel();
+    }
     return super.close();
   }
 }

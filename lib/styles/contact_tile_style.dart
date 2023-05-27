@@ -79,5 +79,5 @@ class ContactTileStyle extends ThemeExtension<ContactTileStyle> {
   }
 
   @override
-  ContactTileStyle copyWith() => ContactTileStyle();
+  ContactTileStyle copyWith() => const ContactTileStyle();
 }

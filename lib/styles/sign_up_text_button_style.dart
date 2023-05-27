@@ -16,5 +16,5 @@ class SignUpTextButtonStyle extends ThemeExtension<SignUpTextButtonStyle> {
   }
 
   @override
-  SignUpTextButtonStyle copyWith() => SignUpTextButtonStyle();
+  SignUpTextButtonStyle copyWith() => const SignUpTextButtonStyle();
 }

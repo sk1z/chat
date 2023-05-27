@@ -27,5 +27,5 @@ class ProfileEditMenuStyle extends ThemeExtension<ProfileEditMenuStyle> {
   }
 
   @override
-  ProfileEditMenuStyle copyWith() => ProfileEditMenuStyle();
+  ProfileEditMenuStyle copyWith() => const ProfileEditMenuStyle();
 }

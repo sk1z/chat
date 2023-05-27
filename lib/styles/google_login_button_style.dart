@@ -23,5 +23,5 @@ class GoogleLoginButtonStyle extends ThemeExtension<GoogleLoginButtonStyle> {
   }
 
   @override
-  GoogleLoginButtonStyle copyWith() => GoogleLoginButtonStyle();
+  GoogleLoginButtonStyle copyWith() => const GoogleLoginButtonStyle();
 }

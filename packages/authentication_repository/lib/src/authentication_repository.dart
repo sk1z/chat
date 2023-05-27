@@ -180,11 +180,11 @@ class ReauthenticationFailure implements Exception {
     this.message = 'An unknown exception occurred.',
   ]);
 
-  static const googleAccountMismatched = const ReauthenticationFailure(
+  static const googleAccountMismatched = ReauthenticationFailure(
     'Google account does not correspond to the user.',
   );
 
-  factory ReauthenticationFailure.fromCode(
+  factory ReauthenticationFailure._fromCode(
       String code, _ProviderType provider) {
     switch (code) {
       case 'user-mismatch':
@@ -287,7 +287,7 @@ class UnlinkFailure implements Exception {
     this.message = 'An unknown exception occurred.',
   ]);
 
-  factory UnlinkFailure.fromCode(String code, _ProviderType provider) {
+  factory UnlinkFailure._fromCode(String code, _ProviderType provider) {
     switch (code) {
       case 'no-such-provider':
         switch (provider) {
@@ -295,13 +295,11 @@ class UnlinkFailure implements Exception {
             return const UnlinkFailure(
               'Password not set.',
             );
-
           case _ProviderType.google:
             return const UnlinkFailure(
               'Google not linked.',
             );
         }
-
       default:
         return const UnlinkFailure();
     }
@@ -435,7 +433,7 @@ class AuthenticationRepository {
       await _firebaseAuth.currentUser?.reauthenticateWithCredential(credential);
       return true;
     } on FirebaseAuthException catch (e) {
-      throw ReauthenticationFailure.fromCode(e.code, _ProviderType.google);
+      throw ReauthenticationFailure._fromCode(e.code, _ProviderType.google);
     } catch (_) {
       throw const ReauthenticationFailure();
     }
@@ -449,7 +447,7 @@ class AuthenticationRepository {
       );
       await _firebaseAuth.currentUser?.reauthenticateWithCredential(credential);
     } on FirebaseAuthException catch (e) {
-      throw ReauthenticationFailure.fromCode(e.code, _ProviderType.password);
+      throw ReauthenticationFailure._fromCode(e.code, _ProviderType.password);
     } catch (_) {
       throw const ReauthenticationFailure();
     }
@@ -459,7 +457,7 @@ class AuthenticationRepository {
     try {
       await _firebaseAuth.currentUser?.unlink('password');
     } on FirebaseAuthException catch (e) {
-      throw UnlinkFailure.fromCode(e.code, _ProviderType.password);
+      throw UnlinkFailure._fromCode(e.code, _ProviderType.password);
     } catch (_) {
       throw const UnlinkFailure();
     }
@@ -488,7 +486,7 @@ class AuthenticationRepository {
     try {
       await _firebaseAuth.currentUser?.unlink('google.com');
     } on FirebaseAuthException catch (e) {
-      throw UnlinkFailure.fromCode(e.code, _ProviderType.google);
+      throw UnlinkFailure._fromCode(e.code, _ProviderType.google);
     } catch (_) {
       throw const UnlinkFailure();
     }

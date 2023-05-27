@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:chat/profile_edit_menu/profile_edit_menu.dart';
 
-typedef _ProfileEditMenuItemBuilder<T> = List<Widget> Function();
+typedef ProfileEditMenuItemBuilder<T> = List<Widget> Function();
 
 const Duration _menuTransitionDuration = Duration(milliseconds: 150);
 const Duration _menuReverseTransitionDuration = Duration(milliseconds: 150);
@@ -9,10 +9,10 @@ const Duration _menuReverseTransitionDuration = Duration(milliseconds: 150);
 class ProfileEditMenuButton extends StatefulWidget {
   const ProfileEditMenuButton({super.key, required this.itemBuilder});
 
-  final _ProfileEditMenuItemBuilder itemBuilder;
+  final ProfileEditMenuItemBuilder itemBuilder;
 
   @override
-  _ProfileEditMenuButtonState createState() => _ProfileEditMenuButtonState();
+  State<ProfileEditMenuButton> createState() => _ProfileEditMenuButtonState();
 }
 
 class _ProfileEditMenuButtonState extends State<ProfileEditMenuButton> {

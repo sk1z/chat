@@ -23,7 +23,7 @@ class SignUpPage extends StatelessWidget {
             authenticationRepository: context.read<AuthenticationRepository>()),
         child: BlocListener<SignUpCubit, SignUpState>(
           listener: (BuildContext context, SignUpState state) {
-            if (state.status.isSubmissionFailure) {
+            if (state.status.isFailure) {
               Fluttertoast.cancel();
               Fluttertoast.showToast(
                 toastLength: Toast.LENGTH_SHORT,

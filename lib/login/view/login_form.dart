@@ -59,7 +59,7 @@ class _EmailInput extends StatelessWidget {
           textInputAction: TextInputAction.next,
           keyboardType: TextInputType.emailAddress,
           labelText: 'email',
-          errorText: state.email.invalid ? 'invalid email' : null,
+          errorText: state.email.displayError != null ? 'invalid email' : null,
         );
       },
     );
@@ -81,7 +81,8 @@ class _PasswordInput extends StatelessWidget {
           onSubmitted: (_) => context.read<LoginCubit>().logInWithCredentials(),
           obscureText: true,
           labelText: 'password',
-          errorText: state.password.invalid ? 'invalid password' : null,
+          errorText:
+              state.password.displayError != null ? 'invalid password' : null,
         );
       },
     );
@@ -100,14 +101,14 @@ class _LoginButton extends StatelessWidget {
       buildWhen: (LoginState previous, LoginState current) =>
           previous.status != current.status,
       builder: (BuildContext context, LoginState state) {
-        if (state.status.isSubmissionInProgress) {
+        if (state.status.isInProgress) {
           return const CircularProgressIndicator();
         }
 
         return Padding(
           padding: style.padding ?? EdgeInsets.zero,
           child: ElevatedButton(
-            onPressed: state.status.isValidated
+            onPressed: state.isValid
                 ? () => context.read<LoginCubit>().logInWithCredentials()
                 : null,
             style: style.style,

@@ -19,9 +19,9 @@ class NameEditPage extends StatelessWidget {
           firestoreRepository: context.read<FirestoreRepository>()),
       child: BlocListener<NameEditCubit, NameEditState>(
         listener: (BuildContext context, NameEditState state) {
-          if (state.status.isSubmissionSuccess) {
+          if (state.status.isSuccess) {
             Navigator.pop(context);
-          } else if (state.status.isSubmissionFailure) {
+          } else if (state.status.isFailure) {
             Fluttertoast.cancel();
             Fluttertoast.showToast(
               toastLength: Toast.LENGTH_SHORT,

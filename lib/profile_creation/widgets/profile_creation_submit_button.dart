@@ -16,10 +16,9 @@ class ProfileCreationSubmitButton extends StatelessWidget {
       buildWhen:
           (ProfileCreationState previous, ProfileCreationState current) =>
               previous.status != current.status &&
-              (previous.status.isSubmissionInProgress ||
-                  current.status.isSubmissionInProgress),
+              (previous.status.isInProgress || current.status.isInProgress),
       builder: (BuildContext context, ProfileCreationState state) {
-        if (state.status.isSubmissionInProgress) {
+        if (state.status.isInProgress) {
           return const FloatingActionButton(
             onPressed: null,
             backgroundColor: Colors.transparent,

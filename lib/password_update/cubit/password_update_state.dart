@@ -3,29 +3,33 @@ part of 'password_update_cubit.dart';
 class PasswordUpdateState extends Equatable {
   const PasswordUpdateState({
     this.password = const Password.pure(),
-    this.status = FormzStatus.pure,
+    this.status = FormzSubmissionStatus.initial,
+    this.isValid = false,
     this.errorMessage,
     this.passwordReauthenticationRequired = false,
   });
 
   final Password password;
-  final FormzStatus status;
+  final FormzSubmissionStatus status;
+  final bool isValid;
   final String? errorMessage;
   final bool passwordReauthenticationRequired;
 
   @override
   List<Object> get props =>
-      [password, status, passwordReauthenticationRequired];
+      [password, status, isValid, passwordReauthenticationRequired];
 
   PasswordUpdateState copyWith({
     Password? password,
-    FormzStatus? status,
+    FormzSubmissionStatus? status,
+    bool? isValid,
     String? errorMessage,
     bool? passwordReauthenticationRequired,
   }) {
     return PasswordUpdateState(
       password: password ?? this.password,
       status: status ?? this.status,
+      isValid: isValid ?? this.isValid,
       errorMessage: errorMessage,
       passwordReauthenticationRequired: passwordReauthenticationRequired ??
           this.passwordReauthenticationRequired,

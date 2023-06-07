@@ -17,7 +17,7 @@ class ProfileCreationCubit extends Cubit<ProfileCreationState> {
     final firstName = FirstName.dirty(value);
     emit(state.copyWith(
       firstName: firstName,
-      status: Formz.validate([firstName]),
+      isValid: Formz.validate([firstName]),
     ));
   }
 
@@ -26,16 +26,16 @@ class ProfileCreationCubit extends Cubit<ProfileCreationState> {
   }
 
   Future<void> createProfile() async {
-    if (!state.status.isValidated) return;
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    if (!state.isValid) return;
+    emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
       await _firestoreRepository.createProfile(
         firstName: state.firstName.value,
         lastName: state.lastName,
       );
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
+      emit(state.copyWith(status: FormzSubmissionStatus.success));
     } catch (_) {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
+      emit(state.copyWith(status: FormzSubmissionStatus.failure));
     }
   }
 }

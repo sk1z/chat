@@ -21,7 +21,7 @@ class LoginPage extends StatelessWidget {
             authenticationRepository: context.read<AuthenticationRepository>()),
         child: BlocListener<LoginCubit, LoginState>(
           listener: (BuildContext context, LoginState state) {
-            if (state.status.isSubmissionFailure) {
+            if (state.status.isFailure) {
               Fluttertoast.cancel();
               Fluttertoast.showToast(
                 toastLength: Toast.LENGTH_SHORT,

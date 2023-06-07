@@ -48,7 +48,7 @@ class _EmailInput extends StatelessWidget {
           textInputAction: TextInputAction.next,
           keyboardType: TextInputType.emailAddress,
           labelText: 'email',
-          errorText: state.email.invalid ? 'invalid email' : null,
+          errorText: state.email.displayError != null ? 'invalid email' : null,
         );
       },
     );
@@ -70,7 +70,8 @@ class _PasswordInput extends StatelessWidget {
           textInputAction: TextInputAction.next,
           obscureText: true,
           labelText: 'password',
-          errorText: state.password.invalid ? 'invalid password' : null,
+          errorText:
+              state.password.displayError != null ? 'invalid password' : null,
         );
       },
     );
@@ -94,8 +95,9 @@ class _ConfirmPasswordInput extends StatelessWidget {
           onSubmitted: (_) => context.read<SignUpCubit>().signUpFormSubmitted(),
           obscureText: true,
           labelText: 'confirm password',
-          errorText:
-              state.confirmedPassword.invalid ? 'passwords do not match' : null,
+          errorText: state.confirmedPassword.displayError != null
+              ? 'passwords do not match'
+              : null,
         );
       },
     );
@@ -114,14 +116,14 @@ class _SignUpButton extends StatelessWidget {
       buildWhen: (SignUpState previous, SignUpState current) =>
           previous.status != current.status,
       builder: (BuildContext context, SignUpState state) {
-        if (state.status.isSubmissionInProgress) {
+        if (state.status.isInProgress) {
           return const CircularProgressIndicator();
         }
 
         return Padding(
           padding: style.padding ?? EdgeInsets.zero,
           child: ElevatedButton(
-            onPressed: state.status.isValidated
+            onPressed: state.isValid
                 ? () => context.read<SignUpCubit>().signUpFormSubmitted()
                 : null,
             style: style.style,

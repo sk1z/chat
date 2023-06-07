@@ -24,7 +24,7 @@ dependencies:
   flow_builder: ^0.0.9
   flutter_bloc: ^8.1.3
   font_awesome_flutter: ^10.4.0
-  formz: ^0.4.0
+  formz: ^0.6.0
   intl: ^0.18.1
   fluttertoast: ^8.0.9
   go_router: ^7.0.2

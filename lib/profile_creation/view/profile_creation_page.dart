@@ -20,7 +20,7 @@ class ProfileCreationPage extends StatelessWidget {
           firestoreRepository: context.read<FirestoreRepository>()),
       child: BlocListener<ProfileCreationCubit, ProfileCreationState>(
         listener: (BuildContext context, ProfileCreationState state) {
-          if (state.status.isSubmissionFailure) {
+          if (state.status.isFailure) {
             Fluttertoast.cancel();
             Fluttertoast.showToast(
               toastLength: Toast.LENGTH_SHORT,

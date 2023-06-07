@@ -18,12 +18,12 @@ class PasswordReauthenticationCubit
     final password = Password.dirty(value);
     emit(state.copyWith(
       password: password,
-      status: Formz.validate([password]),
+      isValid: Formz.validate([password]),
     ));
   }
 
   void passwordConfirmed() {
-    if (!state.status.isValidated) return;
+    if (!state.isValid) return;
     _onPasswordConfirmed?.call(state.password.value);
   }
 }

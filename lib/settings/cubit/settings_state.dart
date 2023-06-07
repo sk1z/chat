@@ -2,21 +2,21 @@ part of 'settings_cubit.dart';
 
 class SettingsState extends Equatable {
   const SettingsState({
-    this.passwordRemoveStatus = FormzStatus.pure,
-    this.googleUpdateStatus = FormzStatus.pure,
+    this.passwordRemoveStatus = FormzSubmissionStatus.initial,
+    this.googleUpdateStatus = FormzSubmissionStatus.initial,
     this.errorMessage,
   });
 
-  final FormzStatus passwordRemoveStatus;
-  final FormzStatus googleUpdateStatus;
+  final FormzSubmissionStatus passwordRemoveStatus;
+  final FormzSubmissionStatus googleUpdateStatus;
   final String? errorMessage;
 
   @override
   List<Object> get props => [passwordRemoveStatus, googleUpdateStatus];
 
   SettingsState copyWith({
-    FormzStatus? passwordRemoveStatus,
-    FormzStatus? googleUpdateStatus,
+    FormzSubmissionStatus? passwordRemoveStatus,
+    FormzSubmissionStatus? googleUpdateStatus,
     String? errorMessage,
   }) {
     return SettingsState(

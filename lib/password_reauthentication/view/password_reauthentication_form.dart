@@ -51,7 +51,8 @@ class _PasswordValidator extends StatelessWidget {
           previous.password != current.password,
       builder: (BuildContext context, PasswordReauthenticationState state) {
         return AccountDataValidator(
-          error: state.password.invalid ? 'invalid password' : null,
+          error:
+              state.password.displayError != null ? 'invalid password' : null,
         );
       },
     );

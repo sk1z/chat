@@ -26,15 +26,15 @@ class SettingsPage extends StatelessWidget {
           authenticationRepository: context.read<AuthenticationRepository>()),
       child: BlocListener<SettingsCubit, SettingsState>(
         listener: (BuildContext context, SettingsState state) {
-          if (state.passwordRemoveStatus.isSubmissionFailure ||
-              state.googleUpdateStatus.isSubmissionFailure) {
+          if (state.passwordRemoveStatus.isFailure ||
+              state.googleUpdateStatus.isFailure) {
             Fluttertoast.cancel();
             Fluttertoast.showToast(
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.CENTER,
               msg: state.errorMessage ??
                   () {
-                    if (state.passwordRemoveStatus.isSubmissionFailure) {
+                    if (state.passwordRemoveStatus.isFailure) {
                       return 'Password Remove Failure';
                     } else {
                       return 'Google Account Update Failure';

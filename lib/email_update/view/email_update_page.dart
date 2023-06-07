@@ -59,7 +59,7 @@ class _EmailValidator extends StatelessWidget {
       builder: (BuildContext context, EmailUpdateState state) {
         return AccountDataValidator(
           // error: 'Usernames',
-          error: state.email.invalid ? 'invalid email' : null,
+          error: state.email.displayError != null ? 'invalid email' : null,
         );
       },
     );

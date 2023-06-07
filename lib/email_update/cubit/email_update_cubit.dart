@@ -19,19 +19,19 @@ class EmailUpdateCubit extends Cubit<EmailUpdateState> {
     final email = Email.dirty(value);
     emit(state.copyWith(
       email: email,
-      status: Formz.validate([email]),
+      isValid: Formz.validate([email]),
     ));
   }
 
   Future<void> updateEmail() async {
-    if (!state.status.isValidated) return;
+    if (!state.isValid) return;
     emit(state.copyWith(
-      status: FormzStatus.submissionInProgress,
+      status: FormzSubmissionStatus.inProgress,
       passwordReauthenticationRequired: false,
     ));
     try {
       await _authRepository.updateEmail(email: state.email.value);
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
+      emit(state.copyWith(status: FormzSubmissionStatus.success));
     } on EmailUpdateFailure catch (e) {
       if (e.recentLoginRequired) {
         if (_authRepository.currentUser.googleProvider == null) {
@@ -44,41 +44,41 @@ class EmailUpdateCubit extends Cubit<EmailUpdateState> {
             updateEmail();
           } else {
             emit(state.copyWith(
-              status: FormzStatus.submissionFailure,
+              status: FormzSubmissionStatus.failure,
               errorMessage: e.message,
             ));
           }
         } on ReauthenticationFailure catch (e) {
           emit(state.copyWith(
-            status: FormzStatus.submissionFailure,
+            status: FormzSubmissionStatus.failure,
             errorMessage: e.message,
           ));
         } catch (_) {
-          emit(state.copyWith(status: FormzStatus.submissionFailure));
+          emit(state.copyWith(status: FormzSubmissionStatus.failure));
         }
       } else {
         emit(state.copyWith(
-          status: FormzStatus.submissionFailure,
+          status: FormzSubmissionStatus.failure,
           errorMessage: e.message,
         ));
       }
     } catch (_) {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
+      emit(state.copyWith(status: FormzSubmissionStatus.failure));
     }
   }
 
   Future<void> reauthenticateWithPassword(String password) async {
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
       await _authRepository.reauthenticateWithPassword(password: password);
       updateEmail();
     } on ReauthenticationFailure catch (e) {
       emit(state.copyWith(
-        status: FormzStatus.submissionFailure,
+        status: FormzSubmissionStatus.failure,
         errorMessage: e.message,
       ));
     } catch (_) {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
+      emit(state.copyWith(status: FormzSubmissionStatus.failure));
     }
   }
 }

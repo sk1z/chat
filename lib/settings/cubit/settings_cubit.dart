@@ -13,33 +13,33 @@ class SettingsCubit extends Cubit<SettingsState> {
   final AuthenticationRepository _authRepository;
 
   Future<void> removePassword() async {
-    if (state.passwordRemoveStatus.isSubmissionInProgress ||
-        state.googleUpdateStatus.isSubmissionInProgress) return;
+    if (state.passwordRemoveStatus.isInProgress ||
+        state.googleUpdateStatus.isInProgress) return;
     emit(state.copyWith(
-      passwordRemoveStatus: FormzStatus.submissionInProgress,
-      googleUpdateStatus: FormzStatus.pure,
+      passwordRemoveStatus: FormzSubmissionStatus.inProgress,
+      googleUpdateStatus: FormzSubmissionStatus.initial,
     ));
     try {
       if (_authRepository.currentUser.passwordProvider != null) {
         await _authRepository.removePassword();
       }
-      emit(state.copyWith(passwordRemoveStatus: FormzStatus.submissionSuccess));
+      emit(state.copyWith(passwordRemoveStatus: FormzSubmissionStatus.success));
     } on UnlinkFailure catch (e) {
       emit(state.copyWith(
-        passwordRemoveStatus: FormzStatus.submissionFailure,
+        passwordRemoveStatus: FormzSubmissionStatus.failure,
         errorMessage: e.message,
       ));
     } catch (_) {
-      emit(state.copyWith(passwordRemoveStatus: FormzStatus.submissionFailure));
+      emit(state.copyWith(passwordRemoveStatus: FormzSubmissionStatus.failure));
     }
   }
 
   Future<void> updateGoogle() async {
-    if (state.passwordRemoveStatus.isSubmissionInProgress ||
-        state.googleUpdateStatus.isSubmissionInProgress) return;
+    if (state.passwordRemoveStatus.isInProgress ||
+        state.googleUpdateStatus.isInProgress) return;
     emit(state.copyWith(
-      googleUpdateStatus: FormzStatus.submissionInProgress,
-      passwordRemoveStatus: FormzStatus.pure,
+      googleUpdateStatus: FormzSubmissionStatus.inProgress,
+      passwordRemoveStatus: FormzSubmissionStatus.initial,
     ));
     try {
       if (_authRepository.currentUser.googleProvider == null) {
@@ -47,19 +47,19 @@ class SettingsCubit extends Cubit<SettingsState> {
       } else {
         await _authRepository.unlinkGoogle();
       }
-      emit(state.copyWith(googleUpdateStatus: FormzStatus.submissionSuccess));
+      emit(state.copyWith(googleUpdateStatus: FormzSubmissionStatus.success));
     } on LinkWithCredentialFailure catch (e) {
       emit(state.copyWith(
-        googleUpdateStatus: FormzStatus.submissionFailure,
+        googleUpdateStatus: FormzSubmissionStatus.failure,
         errorMessage: e.message,
       ));
     } on UnlinkFailure catch (e) {
       emit(state.copyWith(
-        googleUpdateStatus: FormzStatus.submissionFailure,
+        googleUpdateStatus: FormzSubmissionStatus.failure,
         errorMessage: e.message,
       ));
     } catch (_) {
-      emit(state.copyWith(googleUpdateStatus: FormzStatus.submissionFailure));
+      emit(state.copyWith(googleUpdateStatus: FormzSubmissionStatus.failure));
     }
   }
 }

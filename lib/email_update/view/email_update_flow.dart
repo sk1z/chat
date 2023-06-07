@@ -18,9 +18,9 @@ class EmailUpdateFlow extends StatelessWidget {
           authenticationRepository: context.read<AuthenticationRepository>()),
       child: BlocConsumer<EmailUpdateCubit, EmailUpdateState>(
         listener: (BuildContext context, EmailUpdateState state) {
-          if (state.status.isSubmissionSuccess) {
+          if (state.status.isSuccess) {
             Navigator.pop(context);
-          } else if (state.status.isSubmissionFailure) {
+          } else if (state.status.isFailure) {
             Fluttertoast.cancel();
             Fluttertoast.showToast(
               toastLength: Toast.LENGTH_SHORT,

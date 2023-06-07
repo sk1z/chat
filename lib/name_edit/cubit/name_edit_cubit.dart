@@ -21,7 +21,7 @@ class NameEditCubit extends Cubit<NameEditState> {
     final firstName = FirstName.dirty(value);
     emit(state.copyWith(
       firstName: firstName,
-      status: Formz.validate([firstName, state.lastName]),
+      isValid: Formz.validate([firstName, state.lastName]),
     ));
   }
 
@@ -29,21 +29,21 @@ class NameEditCubit extends Cubit<NameEditState> {
     final lastName = LastName.dirty(value);
     emit(state.copyWith(
       lastName: lastName,
-      status: Formz.validate([state.firstName, lastName]),
+      isValid: Formz.validate([state.firstName, lastName]),
     ));
   }
 
   Future<void> editName() async {
-    if (!state.status.isValidated) return;
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
+    if (!state.isValid) return;
+    emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
       await _firestoreRepository.editName(
         firstName: state.firstName.value,
         lastName: state.lastName.value,
       );
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
+      emit(state.copyWith(status: FormzSubmissionStatus.success));
     } catch (_) {
-      emit(state.copyWith(status: FormzStatus.submissionFailure));
+      emit(state.copyWith(status: FormzSubmissionStatus.failure));
     }
   }
 }

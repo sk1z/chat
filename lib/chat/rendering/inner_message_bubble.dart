@@ -2,9 +2,9 @@ import 'dart:math' as math;
 
 import 'package:flutter/rendering.dart';
 
-class RenderInnerChatBubble extends RenderBox
+class RenderInnerMessageBubble extends RenderBox
     with RenderObjectWithChildMixin<RenderBox> {
-  RenderInnerChatBubble(
+  RenderInnerMessageBubble(
     InlineSpan text,
     TextDirection textDirection,
     double maxWidthPercentage,
@@ -98,7 +98,11 @@ class RenderInnerChatBubble extends RenderBox
       if (horizontalSpaceExceeded) {
         height += childSize.height;
       } else {
-        if (lines.length == 1) width += childSize.width;
+        if (lines.length == 1) {
+          width += childSize.width;
+        } else {
+          width = math.max(width, lastLineWidth + childSize.width);
+        }
         height -= lines.last.descent;
         height += childSize.height / 2;
       }

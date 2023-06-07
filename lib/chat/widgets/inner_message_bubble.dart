@@ -18,13 +18,13 @@ class InnerMessageBubble extends SingleChildRenderObjectWidget {
 
   @override
   RenderObject createRenderObject(BuildContext context) {
-    return RenderInnerChatBubble(
+    return RenderInnerMessageBubble(
         text, textDirection, maxWidthPercentage, maxWidth);
   }
 
   @override
   void updateRenderObject(
-      BuildContext context, RenderInnerChatBubble renderObject) {
+      BuildContext context, RenderInnerMessageBubble renderObject) {
     renderObject
       ..text = text
       ..textDirection = textDirection

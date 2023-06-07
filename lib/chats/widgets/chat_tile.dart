@@ -55,6 +55,8 @@ class ChatTile extends StatelessWidget {
       sentTime = null;
     }
 
+    final String? message = this.message?.replaceAll('\n', ' ');
+
     final ChatTileStyle style = Theme.of(context).extension<ChatTileStyle>()!;
 
     return Material(
@@ -115,7 +117,11 @@ class ChatTile extends StatelessWidget {
                             Container(
                               alignment: Alignment.bottomLeft,
                               padding: style.messagePadding,
-                              child: Text(message!, style: style.messageStyle),
+                              child: Text(
+                                message,
+                                overflow: TextOverflow.ellipsis,
+                                style: style.messageStyle,
+                              ),
                             ),
                         ],
                       ),
